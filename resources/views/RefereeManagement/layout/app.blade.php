@@ -81,7 +81,7 @@
     {{-- <script src="{{ asset('js/chart.js') }}"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
-   <script src="{{asset('jquery/refereemanage/dailysalebook.js')}}"></script>
+
    @yield('script')
   </body>
 </html>

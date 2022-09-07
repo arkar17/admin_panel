@@ -128,7 +128,7 @@
             </div>
             <!--3dlonepyine manage end-->
 
-            <script src="{{asset('jquery/3d&lonepyingmanage.js')}}"></script>
+            <script src="{{asset('jquery/refereemanage/3d&lonepyingmanage.js')}}"></script>
 @endsection
 
 
