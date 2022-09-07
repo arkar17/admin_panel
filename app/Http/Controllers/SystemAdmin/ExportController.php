@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\SystemAdmin;
 
-use Illuminate\Routing\Controller;
 use PDF;
 use App\Models\Agent;
 use App\Models\Referee;
+use App\Models\Lonepyine;
 use App\Exports\DataExport;
+use App\Exports\ExportData;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Exports\RefereeExport;
-use App\Models\Lonepyine;
-use App\Models\Lonepyinesalelist;
 use App\Models\Threedsalelist;
+use App\Models\Lonepyinesalelist;
+use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
     public function export()
     {
-         return Excel::download(new RefereeExport, 'referee.xlsx');
+        //  return Excel::download(new RefereeExport, 'referee.xlsx');
+         return Excel::download(new InvoicesExport, 'invoices.xlsx');
     }
 
     public function createPDF () {
@@ -31,9 +33,10 @@ class ExportController extends Controller
 
     }
 
-    public function customer_export()
+    public function customer_export(Request $request)
     {
-         return Excel::download(new DataExport, 'customer_data.xlsx');
+        //  return Excel::download(new DataExport, 'customer_data.xlsx');
+        return Excel::download(new ExportData($request->id), 'customer_data.xlsx');
     }
 
     public function customer_createPDF (Request $request) {

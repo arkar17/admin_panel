@@ -193,7 +193,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('excel/export', [RefereeController::class, 'export'])->name('export_excel');
     Route::get('pdf/export', [RefereeController::class, 'createPDF'])->name('export_pdf');
 
-    Route::get('excel/customerdata_export', [ExportController::class, 'customer_export'])->name('customer.export_excel');
+    Route::get('excel/customerdata_export/{id}', [ExportController::class, 'customer_export'])->name('customer.export_excel');
     Route::get('pdf/customerdata_export/{id}', [ExportController::class, 'customer_createPDF'])->name('customer.export_pdf');
 
     Route::get(' create_user', [UserController::class, 'create_user']);
