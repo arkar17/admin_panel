@@ -33,6 +33,8 @@
         {{-- 2D CSS --}}
         <link href="{{asset('css/refereemanage/2dsalelist.css')}}" rel="stylesheet"/>
 
+    <link rel="stylesheet" href="{{ asset('css/refereemanage/dashboard.css') }}">
+
         {{-- dailysalelist --}}
         <link href="{{asset('css/refereemanage/dailysalebook.css')}}" rel="stylesheet"/>
 
@@ -79,7 +81,8 @@
 
 
     {{-- <script src="{{ asset('js/chart.js') }}"></script> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
    @yield('script')

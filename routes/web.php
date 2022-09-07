@@ -40,10 +40,11 @@ Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+    Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
 
 
     Route::resource('role', RoleController::class);
@@ -200,4 +201,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('winningstatus',[HomeController::class, 'winningstatus']);
 
-});
+// });

@@ -6,7 +6,7 @@
 
         <div class="side-bar-links-container">
 
-            <a class="side-bar-link" href="{{ route('dashboard') }}">
+            <a class="side-bar-link" href="{{ route('refe-dashboard') }}">
               Dashboard
             </a>
 

@@ -22,6 +22,10 @@
             <strong>{{ Session::get('success') }}</strong>
         </div>
         @endif
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
         {{-- <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div> --}}

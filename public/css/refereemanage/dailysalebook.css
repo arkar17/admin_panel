@@ -145,15 +145,19 @@
     margin-bottom: 20px;
 }
 
-.daily-sale-book-accept-btn, .daily-sale-book-decline-btn{
+.daily-sale-book-accept-btn, .daily-sale-book-decline-btn, .daily-sale-book-accepted-btn{
     padding: 8px;
     border-radius: 5px;
     border: none;
     color: white;
+    text-decoration: none;
 }
 
 .daily-sale-book-accept-btn{
     background-color: #016B01;
+}
+.daily-sale-book-accepted-btn{
+    background-color: gray;
 }
 .daily-sale-book-decline-btn{
     background-color: #EA3A36;

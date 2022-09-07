@@ -1,4 +1,4 @@
-@extends('system_admin.layouts.app')
+@extends('RefereeManagement.layout.app')
 
 
 @section('content')
@@ -7,23 +7,23 @@
     <div class="dashboard-gradient-boxes-container">
         <div class="dashboard-gradient-registeration-container">
             <iconify-icon icon="lucide:user-plus" class="dashboard-registeration-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Number of registerations</p>
-            <p class="dashboard-gradient-stat">{{ count($users) }}</p>
+            <p class="dashboard-gradient-label">Total Sale Amount</p>
+            <p class="dashboard-gradient-stat">300000</p>
         </div>
         <div class="dashboard-gradient-traffic-container">
             <iconify-icon icon="tabler:activity-heartbeat" class="dashboard-traffic-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Traffic</p>
-            <p class="dashboard-gradient-stat">78.45GB</p>
+            <p class="dashboard-gradient-label">Total No. Of Agent</p>
+            <p class="dashboard-gradient-stat">{{count($agents)}}</p>
         </div>
         <div class="dashboard-gradient-referee-container">
             <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total No of Referees</p>
-            <p class="dashboard-gradient-stat">{{ count($referees) }}</p>
+            <p class="dashboard-gradient-label">Total Commission</p>
+            <p class="dashboard-gradient-stat">50%</p>
         </div>
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total Sale Amount</p>
-            <p class="dashboard-gradient-stat">20000000</p>
+            <p class="dashboard-gradient-label">Total Profit</p>
+            <p class="dashboard-gradient-stat">300000</p>
         </div>
     </div>
 

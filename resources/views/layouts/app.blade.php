@@ -109,7 +109,7 @@
     <script src="{{ asset('jquery/refereemanage/referee.js') }}"></script>
     <script src="{{ asset('jquery/refereemanage/sidebar.js') }}"></script>
     <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
-    {{-- <script src="{{ asset('js/chart.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/refereemanage/chart.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 

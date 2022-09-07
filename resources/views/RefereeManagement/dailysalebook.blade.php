@@ -155,8 +155,7 @@
                                     @endif
 
                                     <a href="{{route('lonepyinedecline',[$agent->id])}}"
-                                        class="daily-sale-book-decline-btn modalbox"
-                                        data-mytitle="abc" data-catid={{$agent->id}} data-toggle="modal" data-target="#edit">Decline
+                                        class="daily-sale-book-decline-btn">Decline
                                     </a>
 
                                 </div>
@@ -167,72 +166,8 @@
           </div>
         </div>
     </div>
-    <!-- <div class="daily-sale-book-lonepyine-parent-container">
-        <div class="daily-sale-book-labels-container">
-            <p>ID</p>
-            <p>Date</p>
-            <p>Agent Name</p>
-            <p>Customer Name</p>
-            <p>Number</p>
-            <p>Compensation</p>
-            <p>Amount</p>
-        </div>
 
-        <div class="daily-sale-book-rows-container">
-            <div class="daily-sale-book-row">
-                <p>1</p>
-                <p>24 Aug</p>
-                <p>Agent 01</p>
-                <p>Customer 01</p>
-                <p>7*</p>
-                <p>86</p>
-                <p>10000ks</p>
-                <div class="daily-sale-book-row-btn-container">
-                    <button class="daily-sale-book-accept-btn">Accept</button>
-                    <button class="daily-sale-book-decline-btn">Decline</button>
-                </div>
-            </div>
-            <div class="daily-sale-book-row">
-                <p>1</p>
-                <p>24 Aug</p>
-                <p>Agent 01</p>
-                <p>Customer 01</p>
-                <p>*4</p>
-                <p>86</p>
-                <p>10000ks</p>
-                <div class="daily-sale-book-row-btn-container">
-                    <button class="daily-sale-book-accept-btn">Accept</button>
-                    <button class="daily-sale-book-decline-btn">Decline</button>
-                </div>
-            </div>
-            <div class="daily-sale-book-row">
-                <p>1</p>
-                <p>24 Aug</p>
-                <p>Agent 01</p>
-                <p>Customer 01</p>
-                <p>*4</p>
-                <p>86</p>
-                <p>10000ks</p>
-                <div class="daily-sale-book-row-btn-container">
-                    <button class="daily-sale-book-accept-btn">Accept</button>
-                    <button class="daily-sale-book-decline-btn">Decline</button>
-                </div>
-            </div>
-            <div class="daily-sale-book-row">
-                <p>1</p>
-                <p>24 Aug</p>
-                <p>Agent 01</p>
-                <p>Customer 01</p>
-                <p>7*</p>
-                <p>86</p>
-                <p>10000ks</p>
-                <div class="daily-sale-book-row-btn-container">
-                    <button class="daily-sale-book-accept-btn">Accept</button>
-                    <button class="daily-sale-book-decline-btn">Decline</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    
     <div class="daily-sale-book-3d-parent-container">
 
       <p class="daily-sale-book-3d-current-rate">
@@ -286,8 +221,7 @@
                         @endif
 
                         <a href="{{route('threeddecline',[$agent->id])}}"
-                            class="daily-sale-book-decline-btn modalbox"
-                            data-mytitle="abc" data-catid={{$agent->id}} data-toggle="modal" data-target="#edit">Decline
+                            class="daily-sale-book-decline-btn">Decline
                         </a>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
 
     <div class="side-bar-links-container">
 
-        <a class="side-bar-link" href="/">
+        <a class="side-bar-link" href="{{route('sys-dashboard')}}">
           Dashboard
         </a>
         <a class="side-bar-link" href="/create_user">

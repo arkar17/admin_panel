@@ -170,6 +170,10 @@ return [
         // ...
         Spatie\Permission\PermissionServiceProvider::class,
 
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
+        // 'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+
         /*
          * Application Service Providers...
          */
@@ -235,6 +239,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];

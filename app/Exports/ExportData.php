@@ -10,6 +10,7 @@ use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ExportData implements FromView
 {
