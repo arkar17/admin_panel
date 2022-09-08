@@ -40,7 +40,7 @@ Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
 
-// Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
@@ -144,7 +144,7 @@ Route::get('/welcome', fn() => view('welcome'));
 
     // System Admin//
 
-    Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
+    //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
 
     Route::resource('role', RoleController::class);
     Route::get('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
@@ -201,4 +201,4 @@ Route::get('/welcome', fn() => view('welcome'));
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('winningstatus',[HomeController::class, 'winningstatus']);
 
-// });
+});

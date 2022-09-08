@@ -48,7 +48,10 @@
                         </div>
                         <div class="referee-profile-attribute">
                             <h3>Total Sale Amount</h3>
-                            <p>1000000</p>
+                            @foreach ($total as $t)
+                            <p>{{$t->maincash}}</p>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

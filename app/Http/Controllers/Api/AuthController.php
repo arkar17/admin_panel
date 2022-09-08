@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -149,8 +150,18 @@ class AuthController extends Controller
             ]);
         }
 
-        $token = auth()->attempt($validator->validated());
-        if (!$token) {
+        $input =  $request->only(['phone', 'password']);
+        $token = JWTAuth::attempt($input);
+
+        //$token = auth()->attempt($validator->validated());
+        if ($token) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'token' => $token,
+                'user' => auth()->user()
+            ]);
+        }else {
             return response()->json([
                 'status' => 401,
                 'message' => 'Unauthenticated user!'
@@ -341,7 +352,7 @@ class AuthController extends Controller
             'message' => 'Login Success',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL(),
+            // 'expires_in' => auth()->factory()->getTTL(),
             'user' => auth()->user()
         ]);
     }

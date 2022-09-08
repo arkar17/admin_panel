@@ -34,8 +34,8 @@ use App\Http\Controllers\Api\WinningResult\WinningResultController;
 // });
 
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+// Route::post('register', [AuthController::class, 'register']);
+// Route::post('login', [AuthController::class, 'login']);
 
 Route::post('checkPhone', [AuthController::class, 'checkPhone']);
 Route::post('hasPhone', [AuthController::class, 'hasPhone']);;
@@ -43,7 +43,7 @@ Route::post('forget-password', [AuthController::class, 'passwordChange']);
 
 Route::get('/winning-result', [WinningResultController::class, 'checkResult']);
 
-Route::group(['middleware' => 'api'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::get('agent-profile', [AuthController::class, 'agentProfile']);
     Route::post('profile-update', [AuthController::class, 'profileUpdate']);

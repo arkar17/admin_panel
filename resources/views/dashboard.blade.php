@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="main-content-parent-container">
+   
     <!--dashboard start-->
     <div class="dashboard-gradient-boxes-container">
         <div class="dashboard-gradient-registeration-container">
@@ -11,9 +12,9 @@
             <p class="dashboard-gradient-stat">{{ count($users) }}</p>
         </div>
         <div class="dashboard-gradient-traffic-container">
-            <iconify-icon icon="tabler:activity-heartbeat" class="dashboard-traffic-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Traffic</p>
-            <p class="dashboard-gradient-stat">78.45GB</p>
+            <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
+            <p class="dashboard-gradient-label">Number of agents</p>
+            <p class="dashboard-gradient-stat">{{count($agents)}}</p>
         </div>
         <div class="dashboard-gradient-referee-container">
             <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
@@ -23,7 +24,7 @@
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
             <p class="dashboard-gradient-label">Total Sale Amount</p>
-            <p class="dashboard-gradient-stat">20000000</p>
+            <p class="dashboard-gradient-stat"></p>
         </div>
     </div>
 

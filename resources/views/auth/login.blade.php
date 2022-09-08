@@ -35,6 +35,7 @@
               </div> --}}
             <div class="box login">
                 <div class="content-body" style="padding-top:30px">
+                    <h1 style="color: red">HELLO</h1>
                     <form  action="{{ route('login') }}" class="no-mb no-mt" method="POST">
                         @csrf
                         <div class="row">

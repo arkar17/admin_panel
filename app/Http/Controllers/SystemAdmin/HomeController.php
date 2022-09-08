@@ -23,10 +23,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
 
     public function index()
@@ -63,11 +63,12 @@ class HomeController extends Controller
     }
     public function winningstatus(Request $request)
     {
-        $user=auth()->user()->id;
+        // $user=auth()->user()->id;
+        // dd($user);
         $time = Carbon::now()->toTimeString();
 
         $winningnumber=new WinningNumber();
-        $winningnumber->user_id=$user;
+        $winningnumber->user_id=1;
         $winningnumber->number=$request->number;
         $winningnumber->type=$request->type;
         $winningnumber->date=Carbon::now();
@@ -77,13 +78,14 @@ class HomeController extends Controller
         else{
         $winningnumber->round = "Morning";
         }
-        //$winningnumber->save();
+        $winningnumber->save();
 
         if($request->type=='2d'){
             $twodnum=Twod::where('number','=',$request->number)->first();
             if(!empty($twodnum->id)){
                 $twodnum=Twod::where('number','=',$request->number)
                 ->join('twodsalelists','twodsalelists.twod_id','=','twods.id')
+                ->where('twodsalelists.status','=',1)
                 ->update(['twodsalelists.winning_status'=>1]);
 
                 $lonepyineno=substr($request->number, 0, 1);
@@ -91,10 +93,12 @@ class HomeController extends Controller
 
                 $lonepyine = DB::table('lonepyines')->where('number','LIKE',$lonepyineno.'%')
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
+                                ->where('lonepyinesalelists.status','=',1)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
 
                 $lonepyinelno = DB::table('lonepyines')->where('number','LIKE','%'.$lonepyinelno)
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
+                                ->where('lonepyinesalelists.status','=',1)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
@@ -104,6 +108,7 @@ class HomeController extends Controller
             if(!empty($threednum->id)){
                 $threednum=Threed::where('number','=',$request->number)
                 ->join('threedsalelists','threedsalelists.threed_id','=','threeds.id')
+                ->where('threedsalelists.status','=',1)
                 ->update(['threedsalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
