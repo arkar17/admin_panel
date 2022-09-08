@@ -202,3 +202,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('winningstatus',[HomeController::class, 'winningstatus']);
 
 });
+
