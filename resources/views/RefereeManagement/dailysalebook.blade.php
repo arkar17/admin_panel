@@ -68,7 +68,7 @@
         <!--charts end-->
 
         <!--accept decline start-->
-        <div class="daily-sale-book-labels-container">
+        <!--<div class="daily-sale-book-labels-container">
             <p>ID</p>
             <p>Date</p>
             <p>Agent Name</p>
@@ -77,7 +77,8 @@
             <p>Number</p>
             <p>Compensation</p>
             <p>Amount</p>
-        </div>
+        </div>-->
+        
       <div class="daily-sale-book-sale-record-parent-container">
           <h1>2D & Lone Pyine Sale Record</h1>
           <div class="daily-sale-book-sale-record-container">
