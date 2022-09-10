@@ -1,4 +1,4 @@
-@extends('system_admin.layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Referees')
 
@@ -40,10 +40,9 @@
               <div class="referee-request-row">
                 <p>{{$operationstaff->id}}</p>
                 <p>{{$operationstaff->name}}</p>
-                <p>{{$operationstaff->name}}</p>
-                <p>eqwefqewfehfaidbfiudaiuwefwuevdfasvbdjbviug</p>
-                <button class="referee-request-accept-btn">Accept</button>
-                <button class="referee-request-decline-btn">Decline</button>
+                <p>eqwefqewfehfaidbfi</p>
+                    <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">Accept</button></a>
+                    <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">Decline</button></a>
               </div>
               @endforeach
             </div>

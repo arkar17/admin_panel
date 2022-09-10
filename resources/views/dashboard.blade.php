@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="main-content-parent-container">
-   
+
     <!--dashboard start-->
     <div class="dashboard-gradient-boxes-container">
         <div class="dashboard-gradient-registeration-container">
@@ -24,7 +24,7 @@
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
             <p class="dashboard-gradient-label">Total Sale Amount</p>
-            <p class="dashboard-gradient-stat"></p>
+            <p class="dashboard-gradient-stat">{{$sum}}</p>
         </div>
     </div>
 

@@ -36,17 +36,10 @@
 
                     <div class="referee-data-list-row">
                         <p>{{$referee->referee_code}}</p>
-                        <p>{{$referee->user->name}}</p>
-                        <p>{{$referee->user->phone}}</p>
-                        <p>{{$referee->operationstaff->operationstaff_code}}</p>
-                            @foreach ($agentcounts as $agentcount)
-                                @if ($referee->id == $agentcount->referee_id)
-                                        <p>
-                                            {{$agentcount->agentcount}}
-                                        </p>
-                                        @else<p>0</p>
-                                @endif
-                            @endforeach
+                        <p>{{$referee->name}}</p>
+                        <p>{{$referee->phone}}</p>
+                        <p>{{$referee->operationstaff_code}}</p>
+                        <p>{{$referee->agentcount}}</p>
                         <a href="{{route('refreeprofile',$referee->id)}}">
                           <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-data-list-viewdetail-btn"></iconify-icon>
                           View Detail

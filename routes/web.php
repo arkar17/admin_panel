@@ -40,10 +40,9 @@ Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'role:referee'], function(){
+// Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
     Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
 
 
@@ -142,8 +141,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('winning-result', [WinningResultController::class, 'winningresult'])->name('winningresult');
     Route::post('store-winning-result',[WinningResultController::class, 'storeWinningresult'])->name('store.winning');
 
+    });
     // System Admin//
+    Route::group(['middleware' => 'role:system_admin'], function(){
 
+    Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+
+    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
     //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
 
     Route::resource('role', RoleController::class);

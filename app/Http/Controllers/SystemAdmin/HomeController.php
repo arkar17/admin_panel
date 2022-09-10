@@ -63,12 +63,12 @@ class HomeController extends Controller
     }
     public function winningstatus(Request $request)
     {
-        // $user=auth()->user()->id;
+        $user=auth()->user()->id;
         // dd($user);
         $time = Carbon::now()->toTimeString();
 
         $winningnumber=new WinningNumber();
-        $winningnumber->user_id=1;
+        $winningnumber->user_id= $user;
         $winningnumber->number=$request->number;
         $winningnumber->type=$request->type;
         $winningnumber->date=Carbon::now();

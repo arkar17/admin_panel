@@ -10,13 +10,17 @@
         <i class="fa-solid fa-magnifying-glass " ></i>
         <input type="text" placeholder="Search..."/>
       </div>
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Log out</button>
+    </form>
 
       <i class="fa-regular fa-bell"></i>
 
       <div class="top-bar-username-container">
         <i class="fa-regular fa-user"></i>
-        <p>User-12345</p>
-      </div>
+        <p>{{auth()->user()->name}}</p>
+    </div>
     </div>
   </div>
 <!--top bar end-->

@@ -90,9 +90,9 @@
                         @foreach ($agents as $agent)
                         <div class="referee-profile-agent-list-row">
                             <p>{{$agent->id}}</p>
-                            <p>{{$agent->user->name}}</p>
-                            <p>{{$agent->user->phone}}</p>
-                            <p>1000000</p>
+                            <p>{{$agent->name}}</p>
+                            <p>{{$agent->phone}}</p>
+                            <p>{{$agent->maincash}}</p>
                             <a href="{{route('agentprofile',$agent->id)}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
                                 <p>View Details</p>
