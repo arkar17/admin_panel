@@ -67,5 +67,8 @@
 
           </div>
         </div>
+        <a class="side-bar-link" href="/winningstatus">
+            Winning Number
+        </a>
     </div>
   </div>

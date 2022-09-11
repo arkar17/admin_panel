@@ -51,6 +51,7 @@
                 <input type="hidden" name="remark" value="{{$refereerequest->remark}}">
                 <p>
                     <select name="role_id" class="referee-request-role-select">
+                        <option value=" ">Assign Role</option>
                         @foreach ($roles as $role)
                         <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach

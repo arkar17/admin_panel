@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\SystemAdmin;
 
-use Illuminate\Routing\Controller;
 use App\Models\User;
 use App\Models\Guest;
 use App\Models\Client;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Models\Operationstaff;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreOperationStaffRequest;
@@ -24,6 +25,7 @@ class OperationStaffController extends Controller
     {
        // $operation_staffs = Client::whereNotNull('operationstaff_id')->get();
         $operation_staffs=Operationstaff::all();
+        $operation_staffs=DB::select('select u.name,u.phone,op.operationstaff_code,op.image,op.id FROM operationstaffs op left join users u on op.user_id = u.id;');
         return view('system_admin.operationstaff.index', compact('operation_staffs'));
     }
 
@@ -39,7 +41,7 @@ class OperationStaffController extends Controller
 
 
     public function store(StoreOperationStaffRequest $request)
-    { 
+    {
     }
 
     public function operationaccept($id)

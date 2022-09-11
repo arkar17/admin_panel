@@ -26,7 +26,8 @@ use App\Http\Controllers\SystemAdmin\RequestlistController;
 use App\Http\Controllers\SystemAdmin\DataController;
 use App\Http\Controllers\SystemAdmin\ExportController;
 use App\Http\Controllers\SystemAdmin\ProfileController;
-
+use Maatwebsite\Excel\Row;
+use App\Http\Controllers\RefereeLoginController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -39,13 +40,11 @@ Auth::routes();
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
+Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
+Route::group(['middleware' => 'role:referee'], function(){
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
-
 
     Route::resource('role', RoleController::class);
     Route::get('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
@@ -159,8 +158,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('winning-result', [WinningResultController::class, 'winningresult'])->name('winningresult');
     Route::post('store-winning-result',[WinningResultController::class, 'storeWinningresult'])->name('store.winning');
 
+    });
     // System Admin//
+    Route::group(['middleware' => 'role:system_admin'], function(){
 
+    Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+
+    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
     //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
 
     Route::resource('role', RoleController::class);
@@ -216,7 +220,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get(' create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
-    Route::post('winningstatus',[HomeController::class, 'winningstatus']);
+    Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
+
+    // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
+    // Route::post('winningstatus',[HomeController::class, 'winningstatus']);
 
 });
 

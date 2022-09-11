@@ -15,6 +15,7 @@
         <!--main content start-->
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
+                @foreach ($agent as $a)
                 <h1>Data - Agent Data - Agent Profile</h1>
 
                 <div class="agent-profile-filters-container">
@@ -30,29 +31,29 @@
             <div class="agent-profile-details-parent-container">
                 <div class="agent-profile-details-container">
                     <div class="agent-profile-img-container">
-                        <img src="{{asset('storage/image/'.$agent->image)}}" title="Referee Profile" alt=""/>
+                        <img src="{{asset('storage/image/'.$a->image)}}" title="Referee Profile" alt=""/>
                     </div>
 
                     <div class="agent-profile-attributes-container">
                         <div class="agent-profile-attribute">
                             <h3>ID</h3>
-                            <p>AG{{$agent->id}}</p>
+                            <p>AG{{$a->id}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>Agent Name</h3>
-                            <p>{{$agent->user->name}}</p>
+                            <p>{{$a->name}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>Phone Number</h3>
-                            <p>{{$agent->user->phone}}</p>
+                            <p>{{$a->phone}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>Referee Code</h3>
-                            <p>{{$agent->referee->referee_code}}</p>
+                            <p>{{$a->referee_code}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>Total Sale Amount</h3>
-                            <p>1000000</p>
+                            <p>{{$a->maincash}}</p>
                         </div>
                     </div>
                 </div>
@@ -62,12 +63,12 @@
             </div>
             <div class="agent-profile-customer-list-parent-container">
                 <div class="agent-profile-customer-list-header">
-                    <h1>{{$agent->user->name}} 's Customer List</h1>
+                    <h1>{{$a->name}} 's Customer List</h1>
 
                     <div class="export-btns-container">
-                        <a href="{{route('customer.export_excel',$agent->id)}}">Export excel </a>
+                        <a href="{{route('customer.export_excel',$a->id)}}">Export excel </a>
 
-                        <a href="{{route('customer.export_pdf',$agent->id)}}">Export pdf</a>
+                        <a href="{{route('customer.export_pdf',$a->id)}}">Export pdf</a>
                     </div>
 
 
@@ -88,6 +89,7 @@
                         <h2>Name</h2>
                         <h2>Phone No.</h2>
                         <h2>Sale Amount</h2>
+                        <h2>Status</h2>
                     </div>
 
                     <div class="agent-profile-customer-list-rows-container">
@@ -97,10 +99,11 @@
                             <p>{{$twod_salelist->customer_name}}</p>
                             <p>{{$twod_salelist->customer_phone}}</p>
                             <p>{{$twod_salelist->sale_amount}}</p>
-                            {{-- <a href="{{route('customer.profile')}}">
-                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-profile-agent-list-btn"></iconify-icon>
-                                <p>View Details</p>
-                            </a> --}}
+                            @if($twod_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
                         </div>
                         @endforeach
                         @foreach ($threed_salelists as $threed_salelist)
@@ -109,15 +112,31 @@
                             <p>{{$threed_salelist->customer_name}}</p>
                             <p>{{$threed_salelist->customer_phone}}</p>
                             <p>{{$threed_salelist->sale_amount}}</p>
-                            {{-- <a href="{{route('customer.profile')}}">
-                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-profile-agent-list-btn"></iconify-icon>
-                                <p>View Details</p>
-                            </a> --}}
+                            @if($threed_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
+                        </div>
+                        @endforeach
+                        @foreach ($lonepyine_salelists as $lonepyine_salelist)
+                        <div class="agent-profile-customer-list-row">
+                            <p>{{$lonepyine_salelist->id}}</p>
+                            <p>{{$lonepyine_salelist->customer_name}}</p>
+                            <p>{{$lonepyine_salelist->customer_phone}}</p>
+                            <p>{{$lonepyine_salelist->sale_amount}}</p>
+                            @if($lonepyine_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
                         </div>
                         @endforeach
                     </div>
                 </div>
             </div>
+
+            @endforeach
         </div>
 
         <!--main content end-->

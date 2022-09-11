@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Session;
 
 class LoginController extends Controller
 {
@@ -26,8 +29,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
-
+    //protected $redirectTo = '/';
+    //protected $redirectTo = RouteServiceProvider::HOME;
     /**
      * Create a new controller instance.
      *
@@ -40,6 +43,24 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'name';
+        return 'phone';
     }
+
+
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->hasAnyRole(['system_admin']) ) {// do your margic here
+            return redirect()->route('sys-dashboard');
+        }elseif( $user->hasAnyRole(['referee']) ){
+            return redirect()->route('refe-dashboard');
+        }else
+         return redirect('/login');
+    }
+
 }

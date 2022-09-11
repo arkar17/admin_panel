@@ -106,8 +106,15 @@ class RefereeController extends Controller
             return redirect()->back()->with('success', 'Invalid Operation Staff ID');
         }
         $user->operationstaff_code=$otcode;
-        $role = Role::find($request->role_id);
-        $user->roles()->attach($role);
+        $user->assignRole('referee');
+
+        // if($request->role_id==" "){
+        //     $user->roles()->attach(5);
+        // }else{
+        //     $role = Role::find($request->role_id);
+        //     $user->roles()->attach($role);
+        // }
+
         $user->update();
 
         $referee =new Referee();
@@ -126,7 +133,15 @@ class RefereeController extends Controller
         $referee->operationstaff_id=$operationstaff_id;
         $referee->avaliable_Date=$DateTime;
         $referee->active_status=1;
-        $referee->role_id=$request->role_id;
+
+        if(!empty($request->role_id)){
+            $role = Role::find($request->role_id);
+            $user->roles()->attach($role);
+            $referee->role_id=$request->role_id;
+
+        }else{
+            $referee->role_id=5;
+        }
         $referee->remark=$request->remark;
 
         $referee->save();
@@ -253,7 +268,7 @@ class RefereeController extends Controller
         $referee->operationstaff_id=$id;
         $referee->role_id=$request->role_id;
         $referee->user->password = $referee->passowrd ?? $request->password;
-       
+
         // $referee->image = $randomName;
         $user_status=$request->active_status;
         if(!empty($request->avaliable_date)){
@@ -292,7 +307,7 @@ class RefereeController extends Controller
 
         $role = Role::find($referee->role_id);
         $user->roles()->detach($role);
-
+        $user->roles()->detach();
         $user->update();
         $referee->delete();
 

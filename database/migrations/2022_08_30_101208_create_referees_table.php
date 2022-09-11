@@ -26,6 +26,7 @@ class CreateRefereesTable extends Migration
             $table->bigInteger('main_cash')->nullable();
             $table->string('avaliable_date')->nullable();
             $table->integer('active_status')->nullable();
+            $table->boolean('is_online')->default(0);
             $table->timestamps();
         });
     }

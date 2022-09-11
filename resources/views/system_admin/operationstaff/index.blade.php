@@ -95,8 +95,8 @@
             @foreach ($operation_staffs as $operation_staff)
               <div class="op-list-row">
                 <p>{{$operation_staff->operationstaff_code}}</p>
-                <p>{{$operation_staff->user->name}}</p>
-                <p>{{$operation_staff->user->phone}}</p>
+                <p>{{$operation_staff->name}}</p>
+                <p>{{$operation_staff->phone}}</p>
                 {{-- <p>{{$operation_staff->image}}</p> --}}
                 <div class="op-list-row-actions-container">
                 <a href="{{route('operationstaffprofile',$operation_staff->id)}}">
