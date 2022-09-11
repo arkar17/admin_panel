@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api\Opstaff;
 
-use App\Models\User;
-use App\Models\Opstaff;
-use App\Models\Referee;
-use Illuminate\Http\Request;
-use App\Models\Operationstaff;
 use App\Http\Controllers\Controller;
+use App\Models\Operationstaff;
+use App\Models\Referee;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,12 +24,12 @@ class OpstaffController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'data' => $user
+                'data' => $user,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized user'
+                'message' => 'Unauthorized user',
             ]);
         }
     }
@@ -38,15 +37,15 @@ class OpstaffController extends Controller
     // Opstaff Profile update
     public function opstaffProfileUpdate(Request $request)
     {
-        $validator =  Validator::make($request->all(), [
-            'name' => 'required'
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
                 'message' => 'Validation error',
-                'data' => $validator->errors()
+                'data' => $validator->errors(),
             ]);
         }
 
@@ -56,7 +55,7 @@ class OpstaffController extends Controller
             $imageName = null;
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
-                $imageName = uniqid() . '_' .  $file->getClientOriginalName();
+                $imageName = uniqid() . '_' . $file->getClientOriginalName();
                 Storage::disk('public')->put('profiles/' . $imageName, file_get_contents($file));
             }
 
@@ -72,34 +71,49 @@ class OpstaffController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => "Operation profile updated successfully",
-                'data' => $user
+                'data' => $user,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized user'
+                'message' => 'Unauthorized user',
             ]);
         }
     }
-
 
     public function acceptReferee($id)
     {
         $user = auth()->user();
         if ($user) {
-            $usr = User::findOrFail($id);
-            $usr->status =  '1';
+            // $usr = User::where('id', $user->id)->first();
+            // $usr->status =  '2';
 
+            $op_staff = Operationstaff::where('user_id', $user->id)->first();
+
+            $usr = User::where('operationstaff_code', $op_staff->operationstaff_code)->first();
+
+            $referee = new Referee();
+
+            $referee->user_id = $usr->id;
+            $referee->operationstaff_id = $op_staff->id;
+            $referee->role_id = 5;
+
+            $rf = Referee::latest()->first()->id;
+            $referee->referee_code = "RF" . $rf + 1;
+
+            $usr->status = '2';
+
+            $referee->save();
             $usr->save();
 
             return response()->json([
                 'status' => 200,
-                'data' => $usr
+                'data' => $usr,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized usesrs'
+                'message' => 'Unauthorized usesrs',
             ]);
         }
     }
@@ -109,22 +123,21 @@ class OpstaffController extends Controller
         $user = auth()->user();
         if ($user) {
             $usr = User::findOrFail($id);
-            $usr->status = '2';
+            $usr->status = '3';
 
             $usr->save();
 
             return response()->json([
                 'status' => 200,
-                'data' => $usr
+                'data' => $usr,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized usesrs'
+                'message' => 'Unauthorized usesrs',
             ]);
         }
     }
-
 
     // referee requests
     public function showRefereeRequests()
@@ -133,40 +146,45 @@ class OpstaffController extends Controller
         if ($user) {
             $op_staff = Operationstaff::where('user_id', $user->id)->first();
 
-            $referee_requests = User::where('request_type', 'referee')->where('status', '0')
+            $referee_requests = User::where('request_type', 'referee')->where('status', '1')
                 ->where('operationstaff_code', $op_staff->operationstaff_code)->get();
 
             return response()->json([
                 'status' => 200,
-                'referee_requests' => $referee_requests
+                'referee_requests' => $referee_requests,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized users'
+                'message' => 'Unauthorized users',
             ]);
         }
     }
 
     // show referees in operation staff profile
     public function showReferees()
-    {
+    {   
         $user = auth()->user();
         if ($user) {
             $op_staff = Operationstaff::where('user_id', $user->id)->first();
 
-            $referees = Referee::with('user')->whereHas('user', function ($q) use ($op_staff) {
-                $q->where('request_type', 'referee')->where('status', '1')->whereNotNull('referee_code')->where('operationstaff_code', $op_staff->operationstaff_code);
+            // $referees = Referee::with('user')->whereHas('user', function ($q) use ($op_staff) {
+            //     $q->where('request_type', 'referee')->where('status', '2')->whereNotNull('referee_code')->where('operationstaff_code', $op_staff->operationstaff_code);
+            // })->get();
+
+            $referees = Referee::where('operationstaff_id','=',$op_staff->id)->with('user')->whereHas('user', function ($q) use ($op_staff) {
+                $q->where('request_type', 'referee')->where('status', '2');
             })->get();
+
 
             return response()->json([
                 'status' => 200,
-                'referees' => $referees
+                'referees' => $referees,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized users'
+                'message' => 'Unauthorized users',
             ]);
         }
     }
@@ -174,20 +192,20 @@ class OpstaffController extends Controller
     public function editReferee($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
                 'message' => 'Validation Error!',
-                'data' => $validator->errors()
+                'data' => $validator->errors(),
             ]);
         }
         $user = auth()->user();
 
         if ($user) {
-            $referee  = Referee::findOrFail($id);
+            $referee = Referee::findOrFail($id);
             $user = User::findOrFail($referee->user_id);
             $user->name = $request->name;
 
@@ -195,12 +213,12 @@ class OpstaffController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'refereee_name' => $user
+                'refereee_name' => $user,
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized usesrs'
+                'message' => 'Unauthorized usesrs',
             ]);
         }
     }
@@ -210,19 +228,19 @@ class OpstaffController extends Controller
         $user = auth()->user();
         if ($user) {
             $referee = Referee::findOrFail($id);
-            $user = User::findOrFail($referee->user_id);
+            $usr = User::findOrFail($referee->user_id);
 
             $referee->delete();
-            $user->delete();
+            $usr->delete();
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Referee deleted success'
+                'message' => 'Referee deleted success',
             ]);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'Unauthorized users'
+                'message' => 'Unauthorized users',
             ]);
         }
     }

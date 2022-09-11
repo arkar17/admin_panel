@@ -33,7 +33,7 @@ use App\Http\Controllers\Api\WinningResult\WinningResultController;
 //     return $request->user();
 // });
 
-Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
+
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -58,7 +58,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     // Store 2d sale lists ,3d sale lists, lonepyaing sale lists (default pending)
     Route::post('2d-sale', [TwodThreeDController::class, 'twoDSale']);
-    // Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
+    Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
     Route::post('lonepyaing-sale', [TwodThreeDController::class, 'lonePyaingSale']);
 
     // Accepted Transitions
@@ -105,7 +105,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('3d-win', [WinningResultController::class, 'threedWin']);
     Route::post('3d-win-bydate', [WinningResultController::class, 'threedWinByDate']);
     Route::get('lp-win', [WinningResultController::class, 'lpWin']);
-    Route::post('lp-win-bydate', [WinningResultController::class, 'lpWinByDate']);
+    Route::post('lp-win-bydate', [WinningResultController::class, 'lpWinByDate']);   
 
 
     // Notifications

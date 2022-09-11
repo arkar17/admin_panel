@@ -153,6 +153,12 @@ class AuthController extends Controller
         $input =  $request->only(['phone', 'password']);
         $token = JWTAuth::attempt($input);
 
+
+        $user = auth()->user();
+        $agent = Agent::where('user_id', $user->id)->first();
+        $agent->is_online = 1;
+        $agent->save();
+
         //$token = auth()->attempt($validator->validated());
         if ($token) {
             return response()->json([
@@ -195,7 +201,7 @@ class AuthController extends Controller
 
             if ($request->request_type == 'agent') { // if request type is agent
                 $user->referee_code = $request->referee_code;
-                $user->status = '0';
+                $user->status = '1';
                 $user->update();
 
                 return response()->json([
@@ -207,7 +213,7 @@ class AuthController extends Controller
 
             if ($request->request_type == 'referee') { // if request type is referee
                 $user->operationstaff_code = $request->operationstaff_code;
-                $user->status = "0";
+                $user->status = "1";
                 $user->update();
 
                 return response()->json([
@@ -333,6 +339,10 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
+
+        $agent = Agent::where('user_id', auth()->user()->id);
+        $agent->is_online = 0;
+        $agent->save();
         return response()->json([
             'status' => 200,
             'message' => 'User successfully Logout!'

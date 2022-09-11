@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('RefereeManagement.layout.app')
 
 @section('css')
     <style>
@@ -103,7 +103,7 @@
                 <div class="cashin-agent-name-ph-coin-container">
                     <div class="cashin-agent-name-container">
                         <p>Agent Name</p>
-                        <select id="" class="select2 se1" style="width: 240px;" name="agent_id">
+                        <select id="" class="` se1" style="width: 240px;" name="agent_id">
                             @foreach ($agents as $agent)
                                 <option value="{{ $agent->id }}" data-id="{{ $agent->id }}">
                                     {{ $agent->user->name }}</option>
@@ -280,6 +280,7 @@
 @endsection
 
 @section('script')
+
     <script>
         $(document).ready(function() {
 

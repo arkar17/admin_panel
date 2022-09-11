@@ -142,8 +142,8 @@ Route::group(['middleware' => 'role:referee'], function(){
 
 
     // Cashin Cash out
-    Route::post('main-cash.store', [CashInCashOutController::class, 'maincashStore'])->name('maincash.store');
     Route::get('/cashin-cashout', [CashInCashOutController::class , 'cashInView'] )->name('cashin');
+    Route::post('main-cash.store', [CashInCashOutController::class, 'maincashStore'])->name('maincash.store');
     Route::post('/cashin-store', [CashInCashOutController::class, 'cashInStore'])->name('cashin.store');
     Route::post('/cashout-store', [CashInCashOutController::class, 'cashOutStore'])->name('cashout.store');
 

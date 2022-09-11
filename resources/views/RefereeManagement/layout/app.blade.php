@@ -29,6 +29,8 @@
         <link rel="stylesheet" href="{{ asset('css/refereemanage/refereeRequests.css') }}">
         <link rel="stylesheet" href="{{ asset('css/refereemanage/refreesale.css') }}">
         <link rel="stylesheet" href="{{ asset('css/refereemanage/role.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/refereemanage/cashincashout.css') }}">
+
         <link rel="stylesheet" href="{{ asset('css/refereemanage/roleviewdetail.css') }}">
         {{-- 2D CSS --}}
         <link href="{{asset('css/refereemanage/2dsalelist.css')}}" rel="stylesheet"/>
@@ -37,7 +39,7 @@
 
         {{-- dailysalelist --}}
         <link href="{{asset('css/refereemanage/dailysalebook.css')}}" rel="stylesheet"/>
-
+        @yield('css')
         <!-- font awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
 
@@ -84,6 +86,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
 
    @yield('script')
   </body>

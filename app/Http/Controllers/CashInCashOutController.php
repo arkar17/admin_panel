@@ -41,7 +41,7 @@ class CashInCashOutController extends Controller
             $cc = DB::select("select cc.id ,u.name, u.phone , cc.coin_amount from cashin_cashouts cc left join agents a on a.user_id = cc.agent_id left join users u on u.id = a.user_id");
             // dd($agents->toArray());
         // dd($cashin_cashouts->toArray());
-        return view('cashin-cashout.cashin', compact('agents', 'cc','cashin_cashouts'));
+        return view('RefereeManagement.cashin-cashout.cashin', compact('agents', 'cc','cashin_cashouts'));
     }
 
     public function cashInStore(CashInRequest $request)
