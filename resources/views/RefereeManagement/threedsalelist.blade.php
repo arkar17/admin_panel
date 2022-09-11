@@ -56,6 +56,10 @@
                 <p>Filter</p>
                 </button>
             </form>
+            <a class="twod-sale-list-filters-btn"
+                href="{{ route('export3DList') }}">
+                   Export 3d Data
+            </a>
         {{-- </div> --}}
 
         <div class="twod-sale-list-details-parent-container">

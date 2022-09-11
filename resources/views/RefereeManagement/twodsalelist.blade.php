@@ -55,7 +55,14 @@
                     <iconify-icon icon="akar-icons:search" class="twod-sale-list-filter-icon"></iconify-icon>
                     <p>Filter</p>
                     </button>
+
                 </form>
+
+                <br>
+                <a class="twod-sale-list-filters-btn"
+                       href="{{ route('export-2dList') }}">
+                              Export 2D Data
+                    </a>
               {{-- </div> --}}
 
               <div class="twod-sale-list-details-parent-container">

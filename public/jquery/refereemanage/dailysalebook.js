@@ -435,36 +435,36 @@ $(document).ready(function(){
 
 
       //accept decline list
-    //   for(let i = 1;i <= 3;i++){
-    //     $(".daily-sale-book-rows-container").append(
-    //         `<div class="daily-sale-book-row">
-    //         <p>${i}</p>
-    //         <p>24 Aug</p>
-    //         <p>Agent 01</p>
-    //         <p>Morning</p>
-    //         <p>Lone Pyine</p>
-    //         <div class="daily-sale-book-row-numbers">
-    //           <p>74</p>
-    //           <p>56</p>
-    //           <p>89</p>
-    //         </div>
-    //         <div class="daily-sale-book-row-compensations">
-    //           <p>74</p>
-    //           <p>56</p>
-    //           <p>89</p>
-    //         </div>
-    //         <div class="daily-sale-book-row-amounts">
-    //           <p>1000ks</p>
-    //           <p>400ks</p>
-    //           <p>3000ks</p>
-    //         </div>
-    //         <div class="daily-sale-book-row-btn-container">
-    //             <button class="daily-sale-book-accept-btn">Accept</button>
-    //             <button class="daily-sale-book-decline-btn">Decline</button>
-    //         </div>
-    //     </div>`
-    //     )
-    //   }
+      for(let i = 1;i <= 3;i++){
+        $(".daily-sale-book-rows-container").append(
+            `<div class="daily-sale-book-row">
+            <p>${i}</p>
+            <p>24 Aug</p>
+            <p>Agent 01</p>
+            <p>Morning</p>
+            <p>Lone Pyine</p>
+            <div class="daily-sale-book-row-numbers">
+              <p>74</p>
+              <p>56</p>
+              <p>89</p>
+            </div>
+            <div class="daily-sale-book-row-compensations">
+              <p>74</p>
+              <p>56</p>
+              <p>89</p>
+            </div>
+            <div class="daily-sale-book-row-amounts">
+              <p>1000ks</p>
+              <p>400ks</p>
+              <p>3000ks</p>
+            </div>
+            <div class="daily-sale-book-row-btn-container">
+                <button class="daily-sale-book-accept-btn">Accept</button>
+                <button class="daily-sale-book-decline-btn">Decline</button>
+            </div>
+        </div>`
+        )
+      }
 
 
       //2d lone pyine sale record list

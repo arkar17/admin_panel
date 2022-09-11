@@ -80,15 +80,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/3D',[ThreeDManageController::class,'ThreeDManageCreate'])->name('3D');
     Route::post('/3DManage',[ThreeDManageController::class,'LonePyaingManageCreate'])->name('3DManage');
 
-    Route::get('/dailysalebook',[RefreeManagementController::class,'dailysalebook'])->name('dailysalebook');
+     Route::get('/dailysalebook',[RefreeManagementController::class,'dailysalebook'])->name('dailysalebook');
+    // Route::post('/dailysalebook',[RefreeManagementController::class,'dailysalebookOne'])->name('dailysalebook');
+    Route::get('/acceptTwod',[RefreeManagementController::class,'update'])->name('acceptTwod');
+
+     //Accept
+    Route::get('/acceptTwod',[RefreeManagementController::class,'update'])->name('acceptTwod');
+    Route::get('/acceptlp',[RefreeManagementController::class,'lpupdate'])->name('acceptlp');
+    Route::get('/acceptThreed',[RefreeManagementController::class,'threedupdate'])->name('acceptThreed');
+
+    //decline
+    Route::get('/declineTwod',[RefreeManagementController::class,'declineTwod'])->name('declineTwod');
+    Route::get('/declinelp',[RefreeManagementController::class,'declinelp'])->name('declinelp');
+    Route::get('/declineThreed',[RefreeManagementController::class,'declineThreed'])->name('declineThreed');
+
 
     //Accept & decline
-    Route::get('/twodAccept/{id}',[RefreeManagementController::class,'twodAccept'])->name('twodAccept');
-    Route::get('/twodDecline/{id}',[RefreeManagementController::class,'twodDecline'])->name('twodDecline');
-    Route::get('/lonepyineAccept/{id}',[RefreeManagementController::class,'lonepyineAccept'])->name('lonepyineAccept');
-    Route::get('/lonepyinedecline/{id}',[RefreeManagementController::class,'lonepyinedecline'])->name('lonepyinedecline');
-    Route::get('/threedAccept/{id}',[RefreeManagementController::class,'threedAccept'])->name('threedAccept');
-    Route::get('/threedDecline/{id}',[RefreeManagementController::class,'threeddecline'])->name('threeddecline');
+    // Route::get('/twodAccept/{id}',[RefreeManagementController::class,'twodAccept'])->name('twodAccept');
+    // Route::get('/twodDecline/{id}',[RefreeManagementController::class,'twodDecline'])->name('twodDecline');
+    // Route::get('/lonepyineAccept/{id}',[RefreeManagementController::class,'lonepyineAccept'])->name('lonepyineAccept');
+    // Route::get('/lonepyinedecline/{id}',[RefreeManagementController::class,'lonepyinedecline'])->name('lonepyinedecline');
+    // Route::get('/threedAccept/{id}',[RefreeManagementController::class,'threedAccept'])->name('threedAccept');
+    // Route::get('/threedDecline/{id}',[RefreeManagementController::class,'threeddecline'])->name('threeddecline');
 
     //Route::post('/dailySales',[RefreeManagementController::class,'DailySales'])->name('dailySales');
     // Route::get('/tDList', [RefreeManagementController::class, 'getTwoDs']);
@@ -102,10 +115,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/2DManageCreate',[RefreeManagementController::class,'twoDManageCreate'])->name('2DManageCreate');
 
+    Route::get('/send3dlist',[ThreeDManageController::class,'threeDManage2'])->name('send3dlist');
 
-    // Route::get('/notification', function () {
-    //     return view('RefereeManagement/test');
-    // });
+
+    Route::get('/notification', function () {
+        return view('RefereeManagement/test');
+    });
 
     //send data to js file 2d manage and 3 manage
     Route::get('send',[RefreeManagementController::class, 'tDListToAgentsAndReferee']);
@@ -134,7 +149,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/cashout-store', [CashInCashOutController::class, 'cashOutStore'])->name('cashout.store');
 
     //excel export
-    Route::get('/export-2dList',[AgentRController::class,'export2DList'])->name('export-users');
+    Route::get('/export-2dList',[AgentRController::class,'export2DList'])->name('export-2dList');
+    Route::get('/export3DList',[AgentRController::class,'export3DList'])->name('export3DList');
+    Route::get('/exportlonePyaingList',[AgentRController::class,'exportlonePyaingList'])->name('exportlonePyaingList');
 
     Route::get('/cashout', [CashInCashOutController::class, 'cashOutView'])->name('cashout');
 

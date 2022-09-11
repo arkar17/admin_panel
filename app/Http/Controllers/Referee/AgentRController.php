@@ -7,8 +7,12 @@ use App\Models\User;
 use App\Models\Agent;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
+use App\Exports\Export2DSalesList;
+use App\Exports\Export3DSalesList;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportlonepyineSalesList;
 
 class AgentRController extends Controller
 {
@@ -45,6 +49,15 @@ class AgentRController extends Controller
        $updateAgentComssion->comssion = $request->editagentcomssion;
        $updateAgentComssion->update();
        return redirect()->back()->with(['commision'=>'Commision Edit Success']);
+    }
+    public function export2DList(){
+        return Excel::download(new Export2DSalesList, '2d_Sales_list.xlsx');
+    }
+    public function export3DList(){
+        return Excel::download(new Export3DSalesList, '3D_Sales_list.xlsx');
+    }
+    public function exportlonePyaingList(){
+        return Excel::download(new ExportlonepyineSalesList, 'lone_Pyine_list.xlsx');
     }
 
 }

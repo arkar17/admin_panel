@@ -44,23 +44,9 @@ class ThreeDManageController extends Controller
                      ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currenDate' and aa.round = 'Morning' group by aa.number, aa.max_amount , agents.id , aa.max_amount , aa.compensation");
                 }
                     }
-                    // dump($lonepyaing_sale_lists);
-                            $options = array(
-                            'cluster' => env('PUSHER_APP_CLUSTER'),
-                            'encrypted' => true
-                            );
-                            $pusher = new Pusher(
-                            env('PUSHER_APP_KEY'),
-                            env('PUSHER_APP_SECRET'),
-                            env('PUSHER_APP_ID'),
-                            $options
-                            );
 
-                                // $data['message'] = 'Hello XpertPhp';
-                            $pusher->trigger('testing-channel.'.$referee->id, 'App\\Events\\testing',  ['salesList' => $lonepyaing_sale_lists]);
                             return view('RefereeManagement.threedManage', compact('rate','lonepyaing_sale_lists'));
 
-                            // return view('RefereeManagement.threedManage',compact('rate'));
     }
 
     public function TnLmanage()
@@ -74,7 +60,7 @@ class ThreeDManageController extends Controller
                     $agent = Agent::where('user_id', $user->id)->with('referee')->first();
                     $referee = Referee::where('user_id', $agent->referee->user_id)->with('user')->first();
                     if($time > 12){
-                    $lonepyaing_sale_lists = DB::select("Select aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    $lonepyaing_sale_lists = DB::select("Select aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
                     from (SELECT * FROM
                      ( SELECT * FROM lonepyines t where referee_id = '$referee->id'
                      ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
@@ -82,7 +68,7 @@ class ThreeDManageController extends Controller
                      ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currenDate' and aa.round = 'Evening' group by aa.number, aa.max_amount , agents.id , aa.max_amount , aa.compensation");
                 }
                 else{
-                    $lonepyaing_sale_lists = DB::select("Select aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    $lonepyaing_sale_lists = DB::select("Select aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
                     from (SELECT * FROM
                      ( SELECT * FROM lonepyines t where referee_id = '$referee->id'
                      ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
@@ -90,24 +76,58 @@ class ThreeDManageController extends Controller
                      ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currenDate' and aa.round = 'Morning' group by aa.number, aa.max_amount , agents.id , aa.max_amount , aa.compensation");
                 }
                     }
-                    // dump($lonepyaing_sale_lists);
-                            $options = array(
-                            'cluster' => env('PUSHER_APP_CLUSTER'),
-                            'encrypted' => true
-                            );
-                            $pusher = new Pusher(
-                            env('PUSHER_APP_KEY'),
-                            env('PUSHER_APP_SECRET'),
-                            env('PUSHER_APP_ID'),
-                            $options
-                            );
+                    $options = array(
+                        'cluster' => env('PUSHER_APP_CLUSTER'),
+                        'encrypted' => true
+                        );
+                        $pusher = new Pusher(
+                        env('PUSHER_APP_KEY'),
+                        env('PUSHER_APP_SECRET'),
+                        env('PUSHER_APP_ID'),
+                        $options
+                        );
 
-                                // $data['message'] = 'Hello XpertPhp';
-                            $pusher->trigger('testing-channel.'.$referee->id, 'App\\Events\\testing',  ['salesList' => $lonepyaing_sale_lists]);
-                            return response()->json([
-                                'status' => 200,
-                                'data' => ['salesList' => $lonepyaing_sale_lists]
-                            ]);
+                            // $data['message'] = 'Hello XpertPhp';
+                        $pusher->trigger('lonepyine-channel.'.$referee->id, 'App\\Events\\lonepyine',  ['salesList' => $lonepyaing_sale_lists]);
+                        return response()->json([
+                            'status' => 200,
+                            'data' => ['salesList' => $lonepyaing_sale_lists]
+                        ]);
+
+                            // return view('RefereeManagement.threedManage',compact('rate'));
+    }
+
+    public function threeDManage2()
+    {
+        $user = auth()->user()->id;
+        $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $user ORDER BY id DESC LIMIT 1");
+        $user = auth()->user();
+        // $currenDate = Carbon::now()->toDateString();
+                $time = Carbon::Now()->toTimeString();
+                if ($user) {
+                    // $agent = Agent::where('user_id', $user->id)->with('referee')->first();
+                    // $referee = Referee::where('user_id', $agent->referee->user_id)->with('user')->first();
+                    if($time > 12){
+                    $lonepyaing_sale_lists = DB::select("Select * from (SELECT id,number FROM threeds t where referee_id = '$user'  ORDER BY id DESC LIMIT 350)sub ORDER BY id ASC;");
+                }
+                    }
+                    $options = array(
+                        'cluster' => env('PUSHER_APP_CLUSTER'),
+                        'encrypted' => true
+                        );
+                        $pusher = new Pusher(
+                        env('PUSHER_APP_KEY'),
+                        env('PUSHER_APP_SECRET'),
+                        env('PUSHER_APP_ID'),
+                        $options
+                        );
+
+                        $data['message'] = 'Hello XpertPhp';
+                        $pusher->trigger('threed-channel.'.$user, 'App\\Events\\sendthreed',  $rate);
+                        return response()->json([
+                            'status' => 200,
+                            'data' => $rate
+                        ]);
 
                             // return view('RefereeManagement.threedManage',compact('rate'));
     }

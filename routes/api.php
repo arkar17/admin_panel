@@ -33,9 +33,9 @@ use App\Http\Controllers\Api\WinningResult\WinningResultController;
 //     return $request->user();
 // });
 
-
-// Route::post('register', [AuthController::class, 'register']);
-// Route::post('login', [AuthController::class, 'login']);
+Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 Route::post('checkPhone', [AuthController::class, 'checkPhone']);
 Route::post('hasPhone', [AuthController::class, 'hasPhone']);;
@@ -58,7 +58,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     // Store 2d sale lists ,3d sale lists, lonepyaing sale lists (default pending)
     Route::post('2d-sale', [TwodThreeDController::class, 'twoDSale']);
-    Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
+    // Route::post('3d-sale', [TwodThreeDController::class, 'threeDSale']);
     Route::post('lonepyaing-sale', [TwodThreeDController::class, 'lonePyaingSale']);
 
     // Accepted Transitions
