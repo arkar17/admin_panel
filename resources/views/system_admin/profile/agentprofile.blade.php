@@ -89,6 +89,7 @@
                         <h2>Name</h2>
                         <h2>Phone No.</h2>
                         <h2>Sale Amount</h2>
+                        <h2>Status</h2>
                     </div>
 
                     <div class="agent-profile-customer-list-rows-container">
@@ -98,10 +99,11 @@
                             <p>{{$twod_salelist->customer_name}}</p>
                             <p>{{$twod_salelist->customer_phone}}</p>
                             <p>{{$twod_salelist->sale_amount}}</p>
-                            {{-- <a href="{{route('customer.profile')}}">
-                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-profile-agent-list-btn"></iconify-icon>
-                                <p>View Details</p>
-                            </a> --}}
+                            @if($twod_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
                         </div>
                         @endforeach
                         @foreach ($threed_salelists as $threed_salelist)
@@ -110,10 +112,24 @@
                             <p>{{$threed_salelist->customer_name}}</p>
                             <p>{{$threed_salelist->customer_phone}}</p>
                             <p>{{$threed_salelist->sale_amount}}</p>
-                            {{-- <a href="{{route('customer.profile')}}">
-                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-profile-agent-list-btn"></iconify-icon>
-                                <p>View Details</p>
-                            </a> --}}
+                            @if($threed_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
+                        </div>
+                        @endforeach
+                        @foreach ($lonepyine_salelists as $lonepyine_salelist)
+                        <div class="agent-profile-customer-list-row">
+                            <p>{{$lonepyine_salelist->id}}</p>
+                            <p>{{$lonepyine_salelist->customer_name}}</p>
+                            <p>{{$lonepyine_salelist->customer_phone}}</p>
+                            <p>{{$lonepyine_salelist->sale_amount}}</p>
+                            @if($lonepyine_salelist->status == 0 )
+                            <p>Unconfirm</p>
+                            @else
+                            <p>Confirm</p>
+                            @endif
                         </div>
                         @endforeach
                     </div>

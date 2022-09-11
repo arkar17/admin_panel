@@ -35,16 +35,16 @@
               </div> --}}
             <div class="box login">
                 <div class="content-body" style="padding-top:30px">
-                    <h1 style="color: red">HELLO</h1>
+
                     <form  action="{{ route('login') }}" class="no-mb no-mt" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-xs-12">
 
                                 <div class="form-group">
-                                    <label for="phone" class="form-label">Username</label>
+                                    <label for="phone" class="form-label">Phone Number</label>
 
-                                        <input type="text" class="form-control" name="name" placeholder="username" autofocus>
+                                        <input type="text" class="form-control" name="phone" placeholder="phone" autofocus>
 
                                 </div>
 

@@ -19,6 +19,7 @@ class CreateAgentsTable extends Migration
             $table->integer('referee_id');
             $table->string('image')->nullable();
             $table->integer('commision')->nullable();
+            $table->boolean('is_online')->default(0);
             $table->timestamps();
         });
     }

@@ -22,62 +22,6 @@
             <strong>{{ Session::get('success') }}</strong>
         </div>
         @endif
-        {{-- <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div> --}}
-                    <!--guest list start-->
-                    <div class="user-list-parent-container">
-                        <h1>User List</h1>
-                        <div class="user-list-container">
-                        <div class="user-list-labels-container">
-                            <h2>ID</h2>
-                            <h2>Name</h2>
-                            <h2>Phone Number</h2>
-                            <h2>Promote</h2>
-                            {{-- <h2>Action</h2> --}}
-
-                        </div>
-
-                        <div class="user-list-rows-container">
-                            @foreach ($users as $user)
-                                <div class="user-list-row">
-                                    <p>{{$user->id}}</p>
-                                    <p>{{$user->name}}</p>
-                                    <p>{{$user->phone}}</p>
-                                    <div>
-                                        <a href="{{route('promoteos',$user->id)}}">
-                                            Operation Staff
-                                        </a>
-                                        {{-- <a href="{{route('promoterf',$user->id)}}">
-                                            user
-                                        </a> --}}
-                                    </div>
-                                    <div class="user-list-row-actions-container">
-                                        <a href="{{route('guestprofile',$user->id)}}">
-                                            <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
-                                        </a>
-                                        <a href="{{route('guest.destroy',$user->id)}}">
-                                            <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                        </div>
-                        </div>
-
-                    </div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                {{-- </div>
-            </div>
-        </div> --}}
-
-        <!--Create referee start-->
 
         <div class="create-user-parent-container">
             <h1>Create User</h1>
@@ -159,6 +103,59 @@
             </form>
         </div>
 
-        <!--create referee end-->
+          {{-- <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div> --}}
+                    <!--guest list start-->
+                    <div class="user-list-parent-container">
+                        <h1>User List</h1>
+                        <div class="user-list-container">
+                        <div class="user-list-labels-container">
+                            <h2>ID</h2>
+                            <h2>Name</h2>
+                            <h2>Phone Number</h2>
+                            <h2>Promote</h2>
+                            {{-- <h2>Action</h2> --}}
+
+                        </div>
+
+                        <div class="user-list-rows-container">
+                            @foreach ($users as $user)
+                                <div class="user-list-row">
+                                    <p>{{$user->id}}</p>
+                                    <p>{{$user->name}}</p>
+                                    <p>{{$user->phone}}</p>
+                                    <div>
+                                        <a href="{{route('promoteos',$user->id)}}">
+                                            Operation Staff
+                                        </a>
+                                        {{-- <a href="{{route('promoterf',$user->id)}}">
+                                            user
+                                        </a> --}}
+                                    </div>
+                                    <div class="user-list-row-actions-container">
+                                        <a href="{{route('guestprofile',$user->id)}}">
+                                            <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
+                                        </a>
+                                        <a href="{{route('guest.destroy',$user->id)}}">
+                                            <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                        </div>
+
+                    </div>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                {{-- </div>
+            </div>
+        </div> --}}
 
 @endsection

@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="main-content-parent-container">
-
     <!--dashboard start-->
     <div class="dashboard-gradient-boxes-container">
         <div class="dashboard-gradient-registeration-container">
@@ -39,36 +38,28 @@
         <canvas id="lonepyinechart"></canvas>
       </div>
     </div>
-
-    {{-- <div class="dashboard-linechart-parent-container">
-      <div class="dashboard-linechart-container">
-        <div class="dashboard-linechart-header">
-          <p>Total Sale Amount of Referee</p>
-          <div class="dashboard-referee-list-filter">
-            <iconify-icon icon="ant-design:search-outlined" class="dashboard-referee-list-icon"></iconify-icon>
-            <input list="referees" name="myBrowser" placeholder="Search By Name"/>
-            <datalist id="referees">
-                <option value="Referee 01">
-                <option value="Referee 02">
-                <option value="Referee 03">
-            </datalist>
-        </div>
-        </div>
+    <div class="dashboard-lonepyine-container">
+        <p class="chart-label">Total Sale Amount Of Referee</p>
+        <canvas id="refereechart"></canvas>
       </div>
-    </div> --}}
-    <!--dashboard end-->
-  </div>
+</div>
 @endsection
 
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
     $(document).ready(function(){
         var twod_data = @json($twod_salelists);
         console.log(twod_data);
+
         var lp_data =  @json($lp_salelists);
         console.log(lp_data);
+
+        var refereedata= @json($refereesaleamounts);
+        console.log(refereedata);
+
         const labels1 = [
         twod_data[0].number,
         twod_data[1].number,
@@ -93,6 +84,20 @@
         lp_data[8].number,
         lp_data[9].number,
       ];
+
+      const labels3 = [
+        refereedata[0].maincash,
+        refereedata[1].maincash,
+        refereedata[2].maincash,
+        refereedata[3].maincash,
+        refereedata[4].maincash,
+        refereedata[5].maincash,
+        refereedata[6].maincash,
+        refereedata[7].maincash,
+        refereedata[8].maincash,
+        refereedata[9].maincash
+      ];
+
       const data1 = {
         labels: labels1,
         datasets: [{
@@ -114,6 +119,18 @@
         }]
       };
 
+      const data3 = {
+        labels: labels3,
+        datasets: [{
+          label: 'Amount',
+          backgroundColor: '#EB5E28',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [ refereedata[0].maincash,  refereedata[1].maincash,  refereedata[2].maincash,  refereedata[3].maincash,  refereedata[4].maincash,  refereedata[5].maincash,  refereedata[6].maincash,  refereedata[7].maincash, refereedata[8].maincash, refereedata[9].maincash]
+
+        }]
+      };
+
+
       const config1 = {
         type: 'bar',
         data: data1,
@@ -125,6 +142,11 @@
         options: {}
       };
 
+    const config3 = {
+    type: 'line',
+    data: data3,
+    options: {}
+    };
       const twodChart = new Chart(
         document.getElementById('2dchart'),
         config1
@@ -133,75 +155,12 @@
         document.getElementById('lonepyinechart'),
         config2
       );
+      const refereeChart = new Chart(
+        document.getElementById('refereechart'),
+        config3
+      );
+
 })
-
-//     $(document).ready(function(){
-//         var twod_data = @json($twod_salelists);
-//         var lp_data =  @json($lp_salelists);
-//     const labels1 = [
-//         twod_data[0].number,
-//         twod_data[1].number,
-//         twod_data[2].number,
-//         twod_data[3].number,
-//         twod_data[4].number,
-//         twod_data[5].number,
-//         twod_data[6].number,
-//         twod_data[7].number,
-//         twod_data[8].number,
-//         twod_data[9].number
-//       ];
-//     const labels2 = [
-//         lp_data[0].number,
-//         lp_data[1].number,
-//         lp_data[2].number,
-//         lp_data[3].number,
-//         lp_data[4].number,
-//         lp_data[5].number,
-//         lp_data[6].number,
-//         lp_data[7].number,
-//         lp_data[8].number,
-//         lp_data[9].number,
-//       ];
-
-//       const data1 = {
-//         labels: labels1,
-//         datasets: [{
-//           label: 'Amount',
-//           backgroundColor: '#EB5E28',
-//           borderColor: 'rgb(255, 99, 132)',
-//           data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
-//         }]
-//       };
-//       const data2 = {
-//         labels: labels2,
-//         datasets: [{
-//           label: 'Amount',
-//           backgroundColor: '#EB5E28',
-//           borderColor: 'rgb(255, 99, 132)',
-//           data: [ lp_data[0].sale_amount,  lp_data[1].sale_amount,  lp_data[2].sale_amount,  lp_data[3].sale_amount,  lp_data[4].sale_amount,  lp_data[5].sale_amount,  lp_data[6].sale_amount,  lp_data[7].sale_amount, lp_data[8].sale_amount, lp_data[9].sale_amount],
-//         }]
-//       };
-
-//       const config1 = {
-//         type: 'bar',
-//         data: data1,
-//         options: {}
-//       };
-//       const config2 = {
-//         type: 'bar',
-//         data: data2,
-//         options: {}
-//       };
-
-//       const twodChart = new Chart(
-//         document.getElementById('2dchart'),
-//         config1
-//       );
-//       const lonepyineChart = new Chart(
-//         document.getElementById('lonepyinechart'),
-//         config2
-//       );
-// });
 
 </script>
 

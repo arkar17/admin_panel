@@ -147,7 +147,7 @@ class RefereeController extends Controller
      */
     public function destroy($id)
     {
-        $referee = Client::findOrFail($id);
+        $referee = Referee::findOrFail($id);
 
         $referee->delete();
         return redirect ()->back()->with('success', 'Referee is deleted successfully!');
