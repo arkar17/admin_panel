@@ -122,7 +122,6 @@ class HomeController extends Controller
                 $threednum=Threed::where('number','=',$request->number)
                 ->join('threedsalelists','threedsalelists.threed_id','=','threeds.id')
                 ->where('threedsalelists.status','=','1')
-                ->where('threeds.round',$round)
                 ->where('date',$current_date)
                 ->update(['threedsalelists.winning_status'=>1]);
             }else{

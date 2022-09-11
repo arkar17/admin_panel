@@ -89,7 +89,6 @@
                 <th>Number</th>
                 <th>Customer Name</th>
                 <th>Customer Phone</th>
-                <th>Round</th>
                 <th>Date Time</th>
             </tr>
 
@@ -100,7 +99,6 @@
                 <td>{{$threednumber->number}}</td>
                 <td>{{$threednumber->customer_name}}</td>
                 <td>{{$threednumber->customer_phone}}</td>
-                <td>{{$threednumber->round}}</td>
                 <td>{{$threednumber->date}}</td>
             </tr>
             @endforeach
