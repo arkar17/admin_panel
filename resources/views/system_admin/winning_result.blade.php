@@ -46,7 +46,7 @@
     </div>
 
     <div>
-        <h3>Winning Number Lists</h3>
+        <h3>Winning 2D/Lonepyine Number Lists</h3>
         <table style=" border: 1px solid black;">
             <tr>
                 <th>id</th>
@@ -81,7 +81,7 @@
             </tr>
             @endforeach
         </table>
-
+        <h3>Winning 3D Number Lists</h3>
         <table style=" border: 1px solid black;">
             <tr>
                 <th>id</th>
