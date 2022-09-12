@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="{{ asset('css/refereemanage/role.css') }}">
     <link rel="stylesheet" href="{{ asset('css/refereemanage/cashincashout.css') }}">
 
+
         <link rel="stylesheet" href="{{ asset('css/refereemanage/roleviewdetail.css') }}">
         {{-- 2D CSS --}}
         <link href="{{asset('css/refereemanage/2dsalelist.css')}}" rel="stylesheet"/>
@@ -48,6 +49,8 @@
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
      <title>Trail Blazers</title>
   </head>

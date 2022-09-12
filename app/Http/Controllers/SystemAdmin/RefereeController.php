@@ -225,18 +225,19 @@ class RefereeController extends Controller
     //      return Excel::download(new RefereeExport, 'referee.xlsx');
     // }
 
-    public function createPDF () {
 
-        //$pdf = PDF::loadView('front.cars.pdfExport', compact('group_arr'));
-        $referees = Referee::all();
-        $pdf = PDF::loadView('system_admin.referee.show',compact('referees'));
-        return $pdf->download('invoice.pdf');
-
-    }
 
     public function update(UpdateRefereeRequest $request, $id)
     {
+     
+        if($request->hasFile('profile_img')) {
+            $file = $request->file('profile_img');
+            $imgName = uniqid() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path() . '/image/', $imgName);
+        }
         $referee = Referee::findOrFail($id);
+        $referee->image = $imgName;
         $user_id=$referee->user_id;
         $user = User::findOrFail($user_id);
         $user->name = $request->name;
@@ -291,6 +292,15 @@ class RefereeController extends Controller
         return redirect()->route('referee.index')->with('success', 'Operation Staff is updated successfully!');
     }
 
+
+    public function createPDF () {
+
+        //$pdf = PDF::loadView('front.cars.pdfExport', compact('group_arr'));
+        $referees = Referee::all();
+        $pdf = PDF::loadView('system_admin.referee.show',compact('referees'));
+        return $pdf->download('invoice.pdf');
+
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -46,40 +46,48 @@
     </div>
 
     <div>
-        <h3>Winning 2D/Lonepyine Number Lists</h3>
-        <table style=" border: 1px solid black;">
-            <tr>
-                <th>id</th>
-                <th>Agent Name</th>
-                <th>Number</th>
-                <th>Customer Name</th>
-                <th>Customer Phone</th>
-                <th>Round</th>
-                <th>Date Time</th>
-            </tr>
+        <h3 style="margin: 20px 0">Winning 2D/Lonepyine Number Lists</h3>
+        <table class="twod-winners-table">
+            <thead class="twod-winners-table-head">
+                <tr>
+                    <th>id</th>
+                    <th>Agent Name</th>
+                    <th>Number</th>
+                    <th>Customer Name</th>
+                    <th>Customer Phone</th>
+                    <th>Round</th>
+                    <th>Date Time</th>
+                </tr>
+            </thead>
 
-            @foreach ($twodnumbers as $twodnumber)
-            <tr>
-                <td>2D-{{$twodnumber->id}}</td>
-                <td>{{$twodnumber->name}}</td>
-                <td>{{$twodnumber->number}}</td>
-                <td>{{$twodnumber->customer_name}}</td>
-                <td>{{$twodnumber->customer_phone}}</td>
-                <td>{{$twodnumber->round}}</td>
-                <td>{{$twodnumber->date}}</td>
-            </tr>
-            @endforeach
-            @foreach ($lonepyinenumbers as $lonepyinenumber)
-            <tr>
-                <td>LP-{{$lonepyinenumber->id}}</td>
-                <td>{{$lonepyinenumber->name}}</td>
-                <td>{{$lonepyinenumber->number}}</td>
-                <td>{{$lonepyinenumber->customer_name}}</td>
-                <td>{{$lonepyinenumber->customer_phone}}</td>
-                <td>{{$lonepyinenumber->round}}</td>
-                <td>{{$lonepyinenumber->date}}</td>
-            </tr>
-            @endforeach
+            <tbody class="twod-winners-table-body">
+                @foreach ($twodnumbers as $twodnumber)
+                <tr>
+                    <td>2D-{{$twodnumber->id}}</td>
+                    <td>{{$twodnumber->name}}</td>
+                    <td>{{$twodnumber->number}}</td>
+                    <td>{{$twodnumber->customer_name}}</td>
+                    <td>{{$twodnumber->customer_phone}}</td>
+                    <td>{{$twodnumber->round}}</td>
+                    <td>{{$twodnumber->date}}</td>
+                </tr>
+                @endforeach
+                @foreach ($lonepyinenumbers as $lonepyinenumber)
+                <tr>
+                    <td>LP-{{$lonepyinenumber->id}}</td>
+                    <td>{{$lonepyinenumber->name}}</td>
+                    <td>{{$lonepyinenumber->number}}</td>
+                    <td>{{$lonepyinenumber->customer_name}}</td>
+                    <td>{{$lonepyinenumber->customer_phone}}</td>
+                    <td>{{$lonepyinenumber->round}}</td>
+                    <td>{{$lonepyinenumber->date}}</td>
+                </tr>
+                @endforeach
+
+            </tbody>
+
+
+
         </table>
         <h3>Winning 3D Number Lists</h3>
         <table style=" border: 1px solid black;">

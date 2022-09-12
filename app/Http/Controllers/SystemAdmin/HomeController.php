@@ -76,7 +76,7 @@ class HomeController extends Controller
         $winningnumber->date=Carbon::now();
         $current_date=Carbon::now()->toDateString();
 
-        if($time > 12){
+        if($time > 16){
         $round = "Evening";
         }
         else{
@@ -100,7 +100,7 @@ class HomeController extends Controller
                 $lonepyineno=substr($request->number, 0, 1);
                 $lonepyinelno=$request->number % 10;
 
-                $lonepyine = DB::table('lonepyines')->where('number','LIKE',$lonepyineno.'%')
+                $lonepyineno = DB::table('lonepyines')->where('number','LIKE',$lonepyineno.'%')
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
                                 ->where('lonepyinesalelists.status','=','1')
                                 ->where('lonepyines.round',$round)

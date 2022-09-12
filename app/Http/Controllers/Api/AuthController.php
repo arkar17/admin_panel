@@ -155,9 +155,14 @@ class AuthController extends Controller
 
 
         $user = auth()->user();
-        $agent = Agent::where('user_id', $user->id)->first();
-        $agent->is_online = 1;
-        $agent->save();
+
+        $usr = User::find($user->id);
+        $agent = Agent::where('user_id', $usr->id)->first();
+        if ($agent) {
+            $agent->is_online = 1;
+            $agent->save();
+        }
+
 
         //$token = auth()->attempt($validator->validated());
         if ($token) {
@@ -167,7 +172,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'user' => auth()->user()
             ]);
-        }else {
+        } else {
             return response()->json([
                 'status' => 401,
                 'message' => 'Unauthenticated user!'
@@ -338,11 +343,18 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->logout();
 
-        $agent = Agent::where('user_id', auth()->user()->id);
-        $agent->is_online = 0;
-        $agent->save();
+        $user = auth()->user();
+        if ($user) {
+            if ($user->status == '2' && $user->request_type == "agent") {
+                $agent = Agent::where('user_id', $user->id)->first();
+                $agent->is_online = 0;
+                $agent->save();
+            }
+            auth()->logout();
+        }
+        //User::where('request_type', 'agent')->where('status',2)->first();
+
         return response()->json([
             'status' => 200,
             'message' => 'User successfully Logout!'

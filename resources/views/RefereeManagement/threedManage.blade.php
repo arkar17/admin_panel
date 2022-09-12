@@ -110,12 +110,12 @@
                     <div class="lonepyine-manage-inserts-parent-container">
                       <div class="lonepyine-manage-rate-insert-container">
                         <p>Rate:</p>
-                        <input id="lonepyine-rate-insert-input" type="number"></p>
+                        <input id="lonepyine-rate-insert-input" type="number"/>
                         <button type="button" id="lonepyine-rate-insert-btn">Insert</button>
                       </div>
                       <div class="lonepyine-manage-max-insert-container">
                         <p>Max Amount:</p>
-                        <input id="lonepyine-max-insert-input" type="number"></p>
+                        <input id="lonepyine-max-insert-input" type="number" />
                         <button type="button" id="lonepyine-max-insert-btn">Insert</button>
                       </div>
 

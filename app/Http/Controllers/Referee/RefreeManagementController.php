@@ -105,36 +105,35 @@ class RefreeManagementController extends Controller
 
     public function twoDManageCreate(Request $request)
     {
-        //     return response()->json([
-        //         'success' => 'success',
-        //         'data' => $request->twod,
-        // ]);
         $td_lists = $request->twod; // json string
         $td_lists =  json_decode(json_encode($td_lists));
         $date = Carbon::Now();
         $time = Carbon::Now()->toTimeString();
         $user = auth()->user()->id;
-        if ($time > 12) {
+        if($user){
+            $referee = Referee::where('user_id', $user)->first();
+        if($time > 12){
             foreach ($td_lists as $td_lists) {
                 $twod = new Twod();
-                //  intval($num)
-                $maxAmt = $td_lists->maxAmount;
-                $comp = $td_lists->compensation;
-                $twod->referee_id = $user;
-                $twod->number = $td_lists->twodNumber;
-                $twod->max_amount = intval($maxAmt);
-                $twod->Compensation = intval($comp);
-                $twod->date = $date;
-                $twod->round =  'Evening';
-                $twod->save();
+               //  intval($num)
+               $maxAmt = $td_lists->maxAmount;
+               $comp = $td_lists->compensation;
+               $twod->referee_id = $referee->id;
+               $twod->number = $td_lists->twodNumber;
+               $twod->max_amount = intval($maxAmt);
+               $twod->Compensation = intval($comp);
+               $twod->date = $date;
+               $twod->round =  'Evening';
+               $twod->save();
             }
-        } else {
+        }
+        else{
             foreach ($td_lists as $td_lists) {
                 $twod = new Twod();
-                //  intval($num)
+               //  intval($num)
                 $maxAmt = $td_lists->maxAmount;
                 $comp = $td_lists->compensation;
-                $twod->referee_id = $user;
+                $twod->referee_id = $referee->id;
                 $twod->number = $td_lists->twodNumber;
                 $twod->max_amount = intval($maxAmt);
                 $twod->Compensation = intval($comp);
@@ -143,17 +142,19 @@ class RefreeManagementController extends Controller
                 $twod->save();
             }
         }
+        }
     }
 
 
     public function tDListToAgentsAndReferee()
     {
-        $user = auth()->user();
+        $user = auth()->user()->id;
         $currenDate = Carbon::now()->toDateString();
         $time = Carbon::Now()->toTimeString();
         if ($user) {
-            $agent = Agent::where('user_id', $user->id)->with('referee')->first();
-            $referee = Referee::where('user_id', $agent->referee->user_id)->with('user')->first();
+            // $agent = Agent::where('user_id', $user->id)->first();
+            $referee = Referee::where('user_id', $user)->first();
+            // dd($referee->toArray());
             // dd($referee);
             if ($time > 12) {
                 $twoD_sale_lists = DB::select("Select aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
@@ -428,6 +429,24 @@ class RefreeManagementController extends Controller
             $twoDSalesList = Twodsalelist::where('id',$re)
             ->update(["status" => 1]);
         }
+        $user = auth()->user()->id;
+        if($user){
+            $referee = Referee::where('user_id', $user)->first();
+            $options = array(
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'encrypted' => true
+                );
+                $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+                );
+
+                $data = 'Accepted';
+            $pusher->trigger('channel-name.'.$referee->id, 'App\\Events\\Notify',  $data);
+        }
+
         return redirect()->back()->with('success', 'Status Update!');
     }
     public function lpupdate(Request $request){

@@ -30,7 +30,7 @@
             <div class="referee-profile-details-parent-container">
                 <div class="referee-profile-details-container">
                     <div class="referee-profile-img-container">
-                        <img src="{{asset('storage/image/'.$referee->image)}}" title="Referee Profile" alt=""/>
+                        <img src="{{asset('/image/'.$referee->image)}}" title="Referee Profile" alt=""/>
                     </div>
 
                     <div class="referee-profile-attributes-container">
@@ -56,7 +56,8 @@
                     </div>
                 </div>
                 <div class="referee-profile-chart-container">
-
+                    <p class="chart-label">Total Sale Amount Of Agents</p>
+                    <canvas id="agchart"></canvas>
                 </div>
             </div>
 
@@ -93,7 +94,7 @@
                             <p>{{$agent->name}}</p>
                             <p>{{$agent->phone}}</p>
                             <p>{{$agent->maincash}}</p>
-                            <a href="{{route('agentprofile',$agent->id)}}">
+                            <a href="{{route('agent_profile',$agent->id)}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
                                 <p>View Details</p>
                             </a>
@@ -107,6 +108,8 @@
 @endsection
 
 @push('script')
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
             var table = $('.table');
@@ -132,6 +135,50 @@
                         }
                     });
             })
-        })
-    </script>
+
+            // BarChart//
+
+        var agentdata= @json($agentsaleamounts);
+        console.log(agentdata);
+
+      const labels1 = [
+        agentdata[0].maincash,
+        agentdata[1].maincash,
+        agentdata[2].maincash,
+        agentdata[3].maincash,
+        agentdata[4].maincash,
+        agentdata[5].maincash,
+        agentdata[6].maincash,
+        agentdata[7].maincash,
+
+      ];
+
+      const data1 = {
+        labels: labels1,
+        datasets: [{
+          label: 'Amount',
+          backgroundColor: '#EB5E28',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [ agentdata[0].maincash,  agentdata[1].maincash,  agentdata[2].maincash,  agentdata[3].maincash]
+
+        }]
+      };
+
+
+      const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {}
+      };
+
+      const agChart = new Chart(
+        document.getElementById('agchart'),
+        config1
+      );
+
+})
+
+</script>
+
+@endsection
 @endpush

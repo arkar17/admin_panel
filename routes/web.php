@@ -37,11 +37,16 @@ use App\Http\Controllers\RefereeLoginController;
 // });
 
 Auth::routes();
+
+Route::redirect('/', '/login', 301);
+
+
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
 Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
 Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
+
 Route::group(['middleware' => 'role:referee'], function(){
 // Route::group(['middleware' => 'auth'], function () {
     Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
@@ -55,8 +60,8 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::resource('user', UserController::class);
     Route::resource('agent', AgentController::class);
 
-    Route::resource('operation-staff', OperationStaffController::class);
-    Route::get('/operation-staff/delete/{id}',[OperationStaffController::class,'destroy'])->name('operation-staff.destroy');
+    Route::resource('operation_staff', OperationStaffController::class);
+    Route::get('/operation_staff/delete/{id}',[OperationStaffController::class,'destroy'])->name('operation_staff.destroy');
 
     Route::resource('/referee', RefereeController::class);
     Route::get('/referee/delete/{id}',[RefereeController::class,'destroy'])->name('referee.destroy');
@@ -109,7 +114,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('/agentAccept/{id}',[RefreeManagementController::class,'agentAccept'])->name('agentAccept');
     Route::get('/agentDecline/{id}',[RefreeManagementController::class,'agentDecline'])->name('agentDecline');
 
-     Route::get('/agentprofile/{id}',[AgentRController::class,'agentprofile'])->name('agentprofile');
+     Route::get('/agentprofiledetail/{id}',[AgentRController::class,'agentprofile'])->name('agentprofiledetail');
     Route::post('/agentcommsionupdate/{id}',[AgentRController::class,'agentcommsionupdate'])->name('agentcommsionupdate');
 
     Route::get('/2DManageCreate',[RefreeManagementController::class,'twoDManageCreate'])->name('2DManageCreate');
@@ -161,8 +166,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     });
     // System Admin//
     Route::group(['middleware' => 'role:system_admin'], function(){
-
-    Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+    // Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
     Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
     //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
@@ -208,7 +212,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('/operationstaffprofile/{id}',[ProfileController::class,'operationstaffprofile'])->name('operationstaffprofile');
     Route::get('/guestprofile/{id}',[ProfileController::class,'guestprofile'])->name('guestprofile');
 
-    Route::get('/agentprofile/{id}',[ProfileController::class,'agentprofile'])->name('agentprofile');
+    Route::get('/agent_profile/{id}',[App\Http\Controllers\SystemAdmin\ProfileController::class,'agentprofile'])->name('agent_profile');
 
     Route::get('twod', [TwodController::class, 'twoD'])->name('2d');
 

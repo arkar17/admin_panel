@@ -13,7 +13,7 @@ class ProfileController extends Controller
 
     public function agentprofile($id)
     {
-        $agentProfileData = User::select('id','name','phone')->where('id',$id)->first();
+        $agentProfileData = User::select('users.id','users.name','users.phone','agents.image')->join('agents','agents.user_id','users.agent_id')->where('id',$id)->first();
         $agentCustomerData = Twodsalelist::select('twodsalelists.id','twodsalelists.customer_name','twodsalelists.customer_phone','twodsalelists.agent_id','twodsalelists.sale_amount','twodsalelists.twod_id')
                                 ->where('twodsalelists.agent_id',$id)
                                 ->join('twods','twods.id','twodsalelists.twod_id')
@@ -27,7 +27,7 @@ class ProfileController extends Controller
         for($i=0; $i<count($totalAmount); $i++){
           $total+=implode(" ",$totalAmount[$i]);
         }
-        return view('profile.agentprofiles')->with(['commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
+        return view('RefereeManagement.agentprofiles')->with(['commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
     }
 
     public function agentcommsionupdate(Request $request,$id){

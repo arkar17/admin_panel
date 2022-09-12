@@ -50,7 +50,7 @@
                 <div class="agent-profile-details-parent-container">
                     <div class="agent-profile-details-container">
                         <div class="agent-profile-img-container">
-                            <img src="../assets/images/profile.jpg"/>
+                            <img src="{{asset('/image'.$agentprofiledata->image)}}"/>
                         </div>
 
                         <div class="agent-profile-attributes-container">
@@ -82,8 +82,8 @@
                         </div>
                     </div>
                     <div class="agent-profile-chart-container">
-
-
+                        <p class="chart-label">Total Sale Amount Of Customers</p>
+                        <canvas id="cuschart"></canvas>
                     </div>
                 </div>
 
@@ -136,4 +136,51 @@
 @endsection
 
 @push('script')
-@endpush
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+ $(document).ready(function() {
+var twodata= @json($twocus);
+var threedata=@json($threecus);
+var lonepyinedata=@json($lpcus);
+console.log(twodata);
+console.log(threedata);
+console.log(lonepyinedata);
+
+      const labels1 = [
+        twodata[0].customer_name,
+        twodata[1].customer_name,
+        twodata[2].customer_name,
+        lonepyinedata[0].customer_name,
+        lonepyinedata[1].customer_name,
+        lonepyinedata[2].customer_name,
+        threedata[0].customer_name,
+        threedata[1].customer_name,
+        threedata[2].customer_name,
+      ];
+      const data1 = {
+        labels: labels1,
+        datasets: [{
+          label: 'Amount',
+          backgroundColor: '#EB5E28',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [ twodata[0].maincash,twodata[1].maincash,twodata[2].maincash,twodata[3].maincash,lonepyinedata[0].maincash,lonepyinedata[1].maincash,lonepyinedata[2].maincash,threedata[0].maincash,threedata[1].maincash]
+
+        }]
+      };
+
+
+      const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {}
+      };
+
+      const agChart = new Chart(
+        document.getElementById('cuschart'),
+        config1
+      );
+    })
+    </script>
+    @endsection
+    @endpush

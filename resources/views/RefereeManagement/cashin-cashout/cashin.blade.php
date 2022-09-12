@@ -35,30 +35,28 @@
             justify-content: space-between;
         }
 
-        /* input[type="text"]{
-                        margin-bottom: 20px;
-                    } */
-
-        .select2-container--default .select2-selection--single {
-            padding-top: 3px;
-            height: 34px;
-            background-color: #fff;
-            border: 2px solid #D9DEED;
-            border-radius: 4px;
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 36px !important;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .select2-container--default .select2-selection--single .select2-selection__arrow b {
-            border-color: #D9DEED transparent transparent transparent;
-            border-style: solid;
-            border-width: 5px 4px 0 4px;
-            height: 0;
-            left: 50%;
-            margin-left: -4px;
-            margin-top: 1px;
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 33px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 34px !important;
             position: absolute;
-            top: 50%;
-            width: 0;
+            top: 1px;
+            right: 1px;
+            width: 20px;
         }
+
 
         .select2-container--default .select2-search--dropdown .select2-search__field {
             border: 2px solid #D9DEED;
@@ -103,7 +101,7 @@
                 <div class="cashin-agent-name-ph-coin-container">
                     <div class="cashin-agent-name-container">
                         <p>Agent Name</p>
-                        <select id="" class="` se1" style="width: 240px;" name="agent_id">
+                        <select id="" class="select2 se1" style="width: 240px;" name="agent_id">
                             @foreach ($agents as $agent)
                                 <option value="{{ $agent->id }}" data-id="{{ $agent->id }}">
                                     {{ $agent->user->name }}</option>
@@ -175,8 +173,8 @@
                         @foreach ($cashin_cashouts as $cashin_cashout)
                             <div class="cashin-list-row">
                                 <p>{{ $cashin_cashout->id }}</p>
-                                <p>{{ $cashin_cashout->name }}</p>
-                                <p>{{ $cashin_cashout->phone }}</p>
+                                <p>{{ $cashin_cashout->agent->user->name }}</p>
+                                <p>{{ $cashin_cashout->agent->user->phone }}</p>
                                 <p>{{ $cashin_cashout->coin_amount }}</p>
                                 @if ($cashin_cashout->status == 1)
                                     <p style="color: rgb(107, 153, 37)">Fully Paid</p>
@@ -202,9 +200,10 @@
                     <div class="cashin-agent-name-container">
                         <p>Agent Name</p>
                         <select id="" class="select2 se2" style="width: 240px;" name="agent_id">
-                            @foreach ($cc as $ccs)
-                                <option value="{{ $ccs->id }}" data-id="{{ $ccs->id }}">
-                                    {{ $ccs->name }}</option>
+
+                            @foreach ($agents as $agent)
+                                <option value="{{ $agent->id }}" data-id="{{ $agent->id }}">
+                                    {{ $agent->user->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -223,7 +222,7 @@
                             class="inputCoinAmount2 @error('coin_amount')
                             alert-border
                         @enderror"
-                            name="coin_amount" />
+                            name="coin_amount" disabled/>
 
                         @error('coin_amount')
                             <small class="error-message">{{ $message }}</small>
@@ -264,8 +263,8 @@
                         @foreach ($cashin_cashouts as $cashin_cashout)
                             <div class="cashin-list-row">
                                 <p>{{ $cashin_cashout->id }}</p>
-                                <p>{{ $cashin_cashout->name }}</p>
-                                <p>{{ $cashin_cashout->phone }}</p>
+                                <p>{{ $cashin_cashout->agent->user->name }}</p>
+                                <p>{{ $cashin_cashout->agent->user->phone }}</p>
                                 <p>{{ $cashin_cashout->coin_amount }}</p>
                                 <p>{{ $cashin_cashout->withdraw }}</p>
                             </div>
@@ -287,30 +286,43 @@
             $('.select2').select2();
 
             var agents = @json($agents);
-            var cc = @json($cc);
-
-            console.log('cc',cc);
-
+            var cashin_cashouts = @json($cashin_cashouts);
 
             $('.inputPhone1').val(agents[0].user.phone);
-            $('.inputPhone2').val(cc[0].phone);
+            $('.inputPhone2').val(agents[0].user.phone);
 
-            $('.inputCoinAmount2').val(cc[0].coin_amount);
+            $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount);
 
-            $('.se1').change(function() {
+            $('.se1').on('change', function() {
                 var id = $('.se1').val();
-                $('.inputPhone1').val(agents[--id].user.phone);
+                agents.forEach(agent => {
+                    if (agent.id == id) {
+                        $('.inputPhone1').val(agent.user.phone);
+                    }
+                });
             });
 
-            $('.se2').change(function() {
+            $('.se2').on('change', function() {
                 var id = $('.se2').val();
-                $('.inputPhone2').val(cc[--id].phone);
-            })
+                agents.forEach(agent => {
+                    if (agent.id == id) {
+                        $('.inputPhone2').val(agent.user.phone);
+                    }
+                });
+            });
 
-            $('.se2').change(function() {
+            $('.se2').on('change', function() {
                 var id = $('.se2').val();
-                $('.inputCoinAmount2').val(cc[--id].coin_amount);
-            })
+                agents.forEach(agent => {
+                    cashin_cashouts.forEach(cashin_cashout => {
+                        if (cashin_cashout.agent.id == agent.id) {
+                            if (agent.id == id) {
+                                $('.inputCoinAmount2').val(cashin_cashout.coin_amount);
+                            }
+                        }
+                    })
+                });
+            });
         });
     </script>
 

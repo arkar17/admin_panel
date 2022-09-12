@@ -75,7 +75,7 @@ class AcceptedTransitionController extends Controller
                 })->get();
             return response()->json([
                 'status' => 200,
-                'accepted_twod_lists' => $accepted_threed_lists
+                'accepted_threed_lists' => $accepted_threed_lists
             ]);
         } else {
             return response()->json([
@@ -99,7 +99,7 @@ class AcceptedTransitionController extends Controller
                 })->get();
             return response()->json([
                 'status' => 200,
-                'accepted_twod_lists' => $accepted_threed_lists
+                'accepted_threed_lists' => $accepted_threed_lists
             ]);
         } else {
             return response()->json([

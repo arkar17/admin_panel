@@ -21,7 +21,8 @@ class AgentRController extends Controller
     {
         $user = auth()->user()->id;
 
-        $agentdata = DB::select("SELECT a.id,u.name,u.phone ,Count(td.customer_name) as NumOfCus FROM agents a left join users u on a.id = u.id left join twodsalelists td on a.id = td.agent_id where a.referee_id = '$user' Group By td.agent_id,u.name,u.phone,a.id");
+        $agentdata = DB::select("SELECT a.id,u.name,u.phone ,Count(td.customer_name) as NumOfCus FROM agents a left join users u on a.user_id = u.id left join twodsalelists td on a.id = td.agent_id where a.referee_id = '$user' Group By td.agent_id,u.name,u.phone,a.id");
+        //dd($agentdata);
         // dump ($user);
         return view('RefereeManagement.agentdata')->with(['agentdata'=>$agentdata]);
 
@@ -31,7 +32,7 @@ class AgentRController extends Controller
     {
         $agentProfileData = User::select('id','name','phone')->where('id',$id)->first();
         $agentCustomerData = DB::select("Select ts.id, ts.customer_name,
-        ts.customer_phone, t.number, t.compensation, ts.sale_amount        from                               twodsalelists ts left join twods t on ts.twod_id = t.id where ts.agent_id = $id");
+        ts.customer_phone, t.number, t.compensation, ts.sale_amount from twodsalelists ts left join twods t on ts.twod_id = t.id where ts.agent_id = $id");
         $commision = Agent::select('commision')->where('id',$id)->first();
         $twodnum = Twod::select('number', 'compensation')->where('referee_id',$id)->get()->toArray();
 
@@ -41,7 +42,11 @@ class AgentRController extends Controller
         for($i=0; $i<count($totalAmount); $i++){
           $total+=implode(" ",$totalAmount[$i]);
         }
-        return view('RefereeManagement.agentprofiles')->with(['commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
+
+      $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC;");
+      $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC;");
+      $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC;");
+        return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
     }
 
     public function agentcommsionupdate(Request $request,$id){

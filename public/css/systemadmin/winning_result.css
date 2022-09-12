@@ -1,0 +1,34 @@
+.twod-winners-table{
+    width: 100%;
+    border: none;
+}
+
+
+.twod-winners-table-head{
+    margin-bottom: 10px;
+}
+.twod-winners-table-head th{
+    width: 100px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.twod-winners-table-body td{
+    /* width: 20%; */
+    width: 100px;
+    text-align: center;
+}
+
+.twod-winners-table-body{
+    /* height: 300px; */
+    overflow-y: scroll;
+}
+
+.twod-winners-table-body tr{
+    /* height: 100px; */
+    /* background-color: #E5E5E5; */
+}
+
+.twod-winners-table-body td{
+    padding-bottom: 20px;
+}

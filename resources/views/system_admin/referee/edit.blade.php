@@ -15,12 +15,14 @@
                 <label class="label">
                     <i class="fa-solid fa-plus"></i>
                     <span class="title">Add Photo</span>
-                    <input type="file" id="imgInp"/>
+                    <input type="file" id="imgInp" name="profile_img"/>
 
                     <p>Profile Image</p>
-                    <a href="{{ asset('storage/image/'. $referee->image) }}">{{ $referee->image }}</a>
-                        <input type="file" class="form-control form-control-md" id="profile_img" name="profile_img">
-                    <div class="preview_img mt-2"></div>
+
+                    <img src="{{ asset('/image/'. $referee->image) }}" alt="">
+                    {{-- <a href=">{{ $referee->image }}</a> --}}
+                        {{-- <input type="file" class="form-control form-control-md" id="profile_img" > --}}
+                    {{-- <div class="preview_img mt-2"></div> --}}
                 </label>
                 </div>
 

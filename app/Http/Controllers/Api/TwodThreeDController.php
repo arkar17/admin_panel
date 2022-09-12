@@ -42,7 +42,7 @@ class TwodThreeDController extends Controller
             $twods = Twod::where('referee_id', $agent->referee_id)
                 ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();
 
-            $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
+            // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
             return response()->json([
                 'status' => 200,
                 'twods' => $twods
@@ -76,7 +76,7 @@ class TwodThreeDController extends Controller
             $twods = Twod::where('referee_id', $agent->referee_id)
                 ->where('round', 'Evening')->where('date', $current_date)->latest()->take(100)->get();
 
-            $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
+            // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
             return response()->json([
                 'status' => 200,
                 'twods' => $twods
@@ -109,7 +109,7 @@ class TwodThreeDController extends Controller
         if ($user) {
             $agent = Agent::where('user_id', $user->id)->first();
             $threeds = Threed::select('compensation')->where('referee_id', $agent->referee_id)->where('date', $current_date)->latest()->first();
-            $pusher->trigger('threed-channel', 'App\\Events\\ThreedEvent', $threeds);
+            // $pusher->trigger('threed-channel', 'App\\Events\\ThreedEvent', $threeds);
             return response()->json([
                 'status' => 200,
                 'threeds' => $threeds
@@ -141,7 +141,7 @@ class TwodThreeDController extends Controller
         if ($user) {
             $agent = Agent::where('user_id', $user->id)->first();
             $lonepyines = Lonepyine::where('referee_id', $agent->referee_id)
-                ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();;
+                ->where('round', 'Morning')->where('date', $current_date)->latest()->take(20)->get();;
 
             $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
             return response()->json([
@@ -176,7 +176,7 @@ class TwodThreeDController extends Controller
         if ($user) {
             $agent = Agent::where('user_id', $user->id)->first();
             $lonepyines = Lonepyine::where('referee_id', $agent->referee_id)
-                ->where('round', 'Evening')->where('date', $current_date)->latest()->take(100)->get();;
+                ->where('round', 'Evening')->where('date', $current_date)->latest()->take(20)->get();;
 
             $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
             return response()->json([
@@ -270,7 +270,7 @@ class TwodThreeDController extends Controller
         if ($user) {
             $agent = Agent::where('user_id', $user->id)->first();
             $current_date = Carbon::now('Asia/Yangon')->toDateString();
-            $threeds = Threed::where('referee_id', $agent->referee_id)->where('date', $current_date)->latest()->take(100)->get();
+            $threeds = Threed::where('referee_id', $agent->referee_id)->where('date', $current_date)->latest()->take(1000)->get();
             foreach ($sale_lists->threeDSalesList as $sale) {
                 foreach ($threeds as $threed) {
                     if ($threed->number == $sale->threed_number) {
