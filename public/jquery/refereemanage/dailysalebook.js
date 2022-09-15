@@ -69,7 +69,7 @@ $(document).ready(function(){
     let dataArr = []
 
 
-    $.getJSON('http://127.0.0.1:8000/twodlist', (data, jqXHR) => {
+    $.getJSON('http://165.22.51.1/twodlist', (data, jqXHR) => {
         //2d 1st row
         // console.log(data.data.salesList);
     for(let i = 0;i <= 8;i++){
@@ -329,7 +329,7 @@ $(document).ready(function(){
 
 
 
-    $.getJSON('http://127.0.0.1:8000/lonepyinelist', (data, jqXHR) => {
+    $.getJSON('http://165.22.51.1/lonepyinelist', (data, jqXHR) => {
     console.log(data.data.salesList)
     //lonepyine 1st row
     for(let i = 0; i<= 8;i++){
